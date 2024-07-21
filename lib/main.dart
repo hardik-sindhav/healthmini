@@ -1,15 +1,32 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:healthmini/provider/symptoms_list_provider.dart';
 import 'package:healthmini/screens/about_screen.dart';
 import 'package:healthmini/screens/home_screen/home_screen.dart';
-import 'package:healthmini/screens/landing_screen.dart';
 import 'package:healthmini/screens/symptoms_screen/symptoms_screen.dart';
+import 'package:provider/provider.dart';
 
-import 'demo_page.dart';
-
-void main() {
+Future<void> main() async {
+  await WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyAV3CFoBwNcVPDxusRL8asSqdLZOuI5iPg",
+          appId: "1:976825689261:web:51639f063e9b0aeb231224",
+          messagingSenderId: "976825689261",
+          projectId: "healthmini-cea05",
+          measurementId: "G-NR1FWLVSVW"));
   configureApp();
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<SymptomsListProvider>(
+        create: (context) {
+          return SymptomsListProvider();
+        },
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 void configureApp() {

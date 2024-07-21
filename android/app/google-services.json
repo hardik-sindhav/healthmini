@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "976825689261",
+    "project_id": "healthmini-cea05",
+    "storage_bucket": "healthmini-cea05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976825689261:android:4112b2227820453d231224",
+        "android_client_info": {
+          "package_name": "com.gemini.healthmini"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZpcsUlAUd5izgikEWB32rjYx7Th4C8UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

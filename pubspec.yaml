@@ -46,6 +46,8 @@ dependencies:
   cached_network_image: ^3.3.1
   octo_image: ^2.0.0
   shimmer: any
+  firebase_core: ^3.2.0
+  cloud_firestore: ^5.1.0
 
 
 dev_dependencies:
