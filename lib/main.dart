@@ -1,14 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:healthmini/provider/chat_provider.dart';
 import 'package:healthmini/provider/symptoms_list_provider.dart';
 import 'package:healthmini/screens/about_screen.dart';
+import 'package:healthmini/screens/chat_screen/chat_screen.dart';
 import 'package:healthmini/screens/home_screen/home_screen.dart';
-import 'package:healthmini/screens/symptoms_screen/symptoms_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
-  await WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: FirebaseOptions(
           apiKey: "AIzaSyAV3CFoBwNcVPDxusRL8asSqdLZOuI5iPg",
@@ -22,6 +25,11 @@ Future<void> main() async {
       ChangeNotifierProvider<SymptomsListProvider>(
         create: (context) {
           return SymptomsListProvider();
+        },
+      ),
+      ChangeNotifierProvider<ChatProvider>(
+        create: (context) {
+          return ChatProvider();
         },
       ),
     ],
@@ -57,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => SymptomsScreen(),
+        '/': (context) => ChatScreen(),
         'home': (context) => HomeScreen(),
         'about': (context) => AboutScreen(),
       },

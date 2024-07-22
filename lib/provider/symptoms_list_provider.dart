@@ -1,3 +1,5 @@
+// ignore_for_file: collection_methods_unrelated_type
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:healthmini/models/symptoms_list_model.dart';
@@ -14,7 +16,8 @@ enum SymptomsListState {
 class SymptomsListProvider extends ChangeNotifier {
   SymptomsListState _symptomsListState = SymptomsListState.initial;
   String message = '';
-  List<SymptomsListModel> dataList = [];
+  List<SymptomsListModel> symptomsList = [];
+  List<String> selectedSymptomsList = [];
 
   SymptomsListState get symptomsListState => _symptomsListState;
 
@@ -29,13 +32,39 @@ class SymptomsListProvider extends ChangeNotifier {
       final collectionRef = FirebaseFirestore.instance.collection("symptoms");
       final querySnapshot = await collectionRef.get();
 
-      dataList = querySnapshot.docs
+      symptomsList = querySnapshot.docs
           .map((doc) => SymptomsListModel.fromFirestore(doc.data()))
           .toList();
       setSymptomsListState(SymptomsListState.loaded);
     } catch (error) {
       setSymptomsListState(SymptomsListState.error);
-      print("Error getting data: $error");
     }
+  }
+
+  void selectedSymptoms(String symptoms) {
+    if (selectedSymptomsList.contains(symptoms)) {
+      selectedSymptomsList.remove(symptoms);
+    } else {
+      selectedSymptomsList.add(symptoms);
+    }
+
+    notifyListeners();
+  }
+
+  bool enterSymptoms(String symptoms){
+    bool status;
+    if (selectedSymptomsList.contains(symptoms)) {
+      status = false;
+    } else {
+      selectedSymptomsList.add(symptoms);
+      status = true;
+    }
+    notifyListeners();
+    return status;
+  }
+
+  void removeSymptoms(int index){
+    selectedSymptomsList.removeAt(index);
+    notifyListeners();
   }
 }

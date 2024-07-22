@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:healthmini/provider/symptoms_list_provider.dart';
+import 'package:healthmini/screens/symptoms_screen/view/symptoms_desktop_view.dart';
 import 'package:healthmini/screens/symptoms_screen/view/symptoms_mobile_view.dart';
+import 'package:healthmini/screens/symptoms_screen/view/symptoms_tablet_view.dart';
 import 'package:provider/provider.dart';
 
 class SymptomsScreen extends StatefulWidget {
@@ -44,11 +46,13 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
                 builder: (context, constraints) {
                   if (screenWidth <= 650) {
                     return SymptomsMobileView(
-                        dataList: symptomsListProvider.dataList);
+                        dataList: symptomsListProvider.symptomsList,selectedSymptomsList: symptomsListProvider.selectedSymptomsList);
                   } else if (screenWidth > 650 && screenWidth <= 1024) {
-                    return Container();
+                    return SymptomsTabletView(
+                        dataList: symptomsListProvider.symptomsList,selectedSymptomsList: symptomsListProvider.selectedSymptomsList);
                   } else {
-                    return Container();
+                    return SymptomsDesktopView(
+                        dataList: symptomsListProvider.symptomsList,selectedSymptomsList: symptomsListProvider.selectedSymptomsList);
                   }
                 },
               ),
