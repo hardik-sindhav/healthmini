@@ -19,7 +19,7 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
   void initState() {
     super.initState();
     Future.delayed(
-      Duration(microseconds: 100),
+      const Duration(microseconds: 100),
       () => Provider.of<SymptomsListProvider>(context, listen: false)
           .getSymptomsList(),
     );
@@ -36,33 +36,39 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
           builder: (context, symptomsListProvider, child) {
         switch (symptomsListProvider.symptomsListState) {
           case SymptomsListState.loading:
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           case SymptomsListState.loaded:
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  if (screenWidth <= 650) {
-                    return SymptomsMobileView(
-                        dataList: symptomsListProvider.symptomsList,selectedSymptomsList: symptomsListProvider.selectedSymptomsList);
-                  } else if (screenWidth > 650 && screenWidth <= 1024) {
-                    return SymptomsTabletView(
-                        dataList: symptomsListProvider.symptomsList,selectedSymptomsList: symptomsListProvider.selectedSymptomsList);
-                  } else {
-                    return SymptomsDesktopView(
-                        dataList: symptomsListProvider.symptomsList,selectedSymptomsList: symptomsListProvider.selectedSymptomsList);
-                  }
-                },
-              ),
-            );
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (screenWidth <= 650) {
+                      return SymptomsMobileView(
+                          dataList: symptomsListProvider.symptomsList,
+                          selectedSymptomsList:
+                              symptomsListProvider.selectedSymptomsList);
+                    } else if (screenWidth > 650 && screenWidth <= 1024) {
+                      return SymptomsTabletView(
+                          dataList: symptomsListProvider.symptomsList,
+                          selectedSymptomsList:
+                              symptomsListProvider.selectedSymptomsList);
+                    } else {
+                      return SymptomsDesktopView(
+                          dataList: symptomsListProvider.symptomsList,
+                          selectedSymptomsList:
+                              symptomsListProvider.selectedSymptomsList);
+                    }
+                  },
+                ),
+              );
           case SymptomsListState.error:
             return Container(
-              child: Text("Error"),
+              child: const Text("Error"),
             );
           default:
-            return Center(child: Text('Welcome'));
+            return const Center(child: Text('Welcome'));
         }
       }),
     ));
