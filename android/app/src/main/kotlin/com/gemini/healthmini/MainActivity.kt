@@ -1,4 +1,4 @@
-package com.example.healthmini
+package com.gemini.healthmini
 
 import io.flutter.embedding.android.FlutterActivity
 

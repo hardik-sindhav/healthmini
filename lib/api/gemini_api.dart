@@ -24,6 +24,7 @@ class GeminiApi {
 
     try {
       final jsonResponse = jsonDecode(response.text??"");
+      print(jsonResponse);
       return jsonResponse;
     } catch (e) {
       print('Failed to decode JSON: $e');

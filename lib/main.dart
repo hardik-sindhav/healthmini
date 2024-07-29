@@ -1,13 +1,18 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:healthmini/provider/chat_provider.dart';
 import 'package:healthmini/provider/symptoms_list_provider.dart';
 import 'package:healthmini/screens/about_screen.dart';
-import 'package:healthmini/screens/chat_screen/chat_screen.dart';
+import 'package:healthmini/screens/details_screen/details_screen.dart';
 import 'package:healthmini/screens/home_screen/home_screen.dart';
+import 'package:healthmini/screens/user_location_screen/user_location_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:healthmini/utils/web_config.dart'
+if (dart.library.html) 'package:healthmini/utils/web_config.dart'
+if (dart.library.io) 'package:healthmini/utils/web_config_stub.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -19,7 +24,7 @@ Future<void> main() async {
           messagingSenderId: "976825689261",
           projectId: "healthmini-cea05",
           measurementId: "G-NR1FWLVSVW"));
-  configureApp();
+  configureWebApp();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<SymptomsListProvider>(
@@ -37,10 +42,6 @@ Future<void> main() async {
   ));
 }
 
-void configureApp() {
-  setUrlStrategy(PathUrlStrategy());
-}
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,9 +67,10 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => ChatScreen(),
-        'home': (context) => HomeScreen(),
-        'about': (context) => AboutScreen(),
+        '/': (context) => UserLocationScreen(),
+        '/home': (context) => HomeScreen(),
+        '/about': (context) => AboutScreen(),
+        '/details_page': (context) => DetailsScreen(),
       },
     );
   }
