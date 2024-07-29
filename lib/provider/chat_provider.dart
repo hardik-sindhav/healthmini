@@ -17,7 +17,7 @@ class ChatProvider extends ChangeNotifier {
   final List<ChatMessageModel> messages = [
     ChatMessageModel(
       id: '1',
-      text: 'Hello! How can I assist you today?',
+      text: 'Hi, I’m HealthMini! Ready to help you with tips and advice for a healthier lifestyle. How can I assist you today ?',
       isUser: false,
     ),
   ];
