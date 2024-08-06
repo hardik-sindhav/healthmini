@@ -23,7 +23,7 @@ class CustomNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      placeholder: (context, url) => const ShimmerLoading(),
+      placeholder: (context, url) =>  ShimmerLoading(width: width,height: height,),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
