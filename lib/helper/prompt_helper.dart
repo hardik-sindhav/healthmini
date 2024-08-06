@@ -111,12 +111,14 @@ class PromptHelper {
   }
 
   String exercisePrompt() {
-    return '''Suggest a yoga exercise and return it in the following JSON format:
+    return '''
+    Suggest a yoga pose and return it in the following JSON format:
 
 {
   "message": "",
   "data": {
     "exercise_name": "",
+    "aasan_name": "",
     "duration": "",
     "difficulty_level": "",
     "steps": ["step description 1", "step description 2", "step description 3", ...],
@@ -126,6 +128,7 @@ class PromptHelper {
 
 Please ensure the following:
 - "exercise_name" is a non-empty string.
+- "aasan_name" is a non-empty string indicating the Sanskrit name of the yoga pose.
 - "duration" is a non-empty string indicating the time required to perform the exercise.
 - "difficulty_level" is a non-empty string indicating the difficulty level (e.g., beginner, intermediate, advanced).
 - "steps" is a non-empty array of strings, each representing a step in the exercise process, clearly explained and easy to follow.
@@ -137,12 +140,16 @@ If any validation fails or an error occurs, return the following JSON format:
   "message": "An error occurred while generating the exercise.",
   "data": {}
 }
+
+Ensure the yoga pose suggested is different from the previous one suggested. Example poses include "Downward-Facing Dog", "Tree Pose", "Warrior II", "Child's Pose", "Cobra Pose", "Mountain Pose".
+
 ''';
   }
 
   String recipePrompt() {
-    return '''Generate a healthy recipe and return it in the following JSON format:
+    return '''Generate a healthy recipe and return it in the following JSON format. Ensure the recipe is randomized but follows the structure and validation rules specified below:
 
+```json
 {
   "message": "",
   "data": {
@@ -157,28 +164,38 @@ If any validation fails or an error occurs, return the following JSON format:
       "protein": "",
       "fat": "",
       "carbohydrates": "",
-"sugar" : ""
+      "sugar": ""
     },
     "dietary_tags": ["tag 1", "tag 2", ...]
   }
 }
+Validation Rules:
 
-Please ensure the following:
-- "recipe_name" is a non-empty string.
-- "cook_time" is a non-empty string indicating the time required to cook.
-- "serving_size" is a non-empty string indicating the number of servings.
-- "ingredients" is a non-empty array of strings, each representing an ingredient.
-- "how_to_cook" is a non-empty array of strings, each representing a step in the cooking process, clearly explained and easy to follow.
-- "benefit" is a non-empty array of strings, each representing a health benefit of the recipe.
-- "nutritional_information" includes non-empty strings for calories, protein, fat,  carbohydrates and sugar.
-- "dietary_tags" is a non-empty array of strings representing dietary attributes.
+recipe_name: A non-empty string that clearly describes the recipe.
+cook_time: A non-empty string indicating the total time required to cook the recipe (e.g., "30 minutes").
+serving_size: A non-empty string indicating the number of servings the recipe yields (e.g., "4 servings").
+ingredients: A non-empty array of strings, each representing an ingredient required for the recipe. Ensure that the list is practical and not empty.
+how_to_cook: A non-empty array of strings, each describing a step in the cooking process. Each step should be clear and easy to follow.
+benefit: A non-empty array of strings, each describing a health benefit of the recipe.
+nutritional_information: A JSON object with non-empty strings for:
+calories: Total calories per serving.
+protein: Total protein per serving.
+fat: Total fat per serving.
+carbohydrates: Total carbohydrates per serving.
+sugar: Total sugar per serving.
+dietary_tags: A non-empty array of strings representing dietary attributes, such as "Vegetarian", "Gluten-Free", "Low-Carb", etc.
+If the generated recipe fails any of these validations or an error occurs, return the following JSON format:
 
-If any validation fails or an error occurs, return the following JSON format:
-
+json
+Copy code
 {
   "message": "An error occurred while generating the recipe.",
   "data": {}
 }
+Task:
+
+Generate a random, healthy recipe that adheres to the above structure and validation rules. Ensure that all fields are filled appropriately and that the recipe is both practical and nutritious.
+
 ''';
   }
 }

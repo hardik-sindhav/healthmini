@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healthmini/const/colors.dart';
-import 'package:healthmini/widgets/button_widget.dart';
+import 'package:healthmini/service/shared_preferences_service.dart';
 import 'package:lottie/lottie.dart';
+
+import '../const/colors.dart';
+import '../widgets/button_widget.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -14,180 +16,404 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   @override
+  @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 30;
-    double minFontSize = 28;
-    double padding = MediaQuery.of(context).size.width / 60;
-    double minPadding = 20;
     double screenWidth = MediaQuery.of(context).size.width;
-    double buttonLeftPadding = 0;
-    double buttonRightPadding = 0;
-    double buttonTopPadding = 400;
-    double titleRightPadding = 20;
-    double titleTopPadding = 400;
-    double titleLeftPadding = 25;
-    double size = MediaQuery.of(context).size.width;
-    
-
-    if (screenWidth <= 650) {
-      titleRightPadding = size / 20;
-      titleTopPadding = size/5;
-      titleLeftPadding = size / 20;
-    } else if (screenWidth > 650 && screenWidth <= 1024) {
-      buttonTopPadding = size / 1.8;
-      buttonRightPadding = size / 20;
-      titleTopPadding = size/5;
-      titleRightPadding = size / 20;
-      titleLeftPadding = size/3.3;
-
-    } else {
-      buttonRightPadding = size / 20;
-      buttonTopPadding = 600;
-      titleRightPadding = size / 15;
-      titleLeftPadding = size/1.87;
-      titleTopPadding = size/5;
-    }
-
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Stack(
-          alignment: Alignment.topLeft,
-          children: [
-            AnimatedPositioned(
-                duration: Duration(microseconds: 500),
-                curve: Curves.easeInOut,
-                left: 0,
-                bottom: -1,
-                child: SvgPicture.asset(
-                  'svg/blob-haikei.svg',
-                  height: MediaQuery.of(context).size.width / 2.2,
-                  colorFilter:
-                      ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
-                )),
-            AnimatedPositioned(
-                duration: Duration(microseconds: 500),
-                curve: Curves.easeInOut,
-                right: -1,
-                top: -1,
-                child: SvgPicture.asset(
-                  'svg/blob-haikei_2.svg',
-                  height: MediaQuery.of(context).size.width / 2.2,
-                  colorFilter:
-                      ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
-                )),
-            Positioned(
-                left: -MediaQuery.of(context).size.width / 30,
-                bottom: -MediaQuery.of(context).size.width / 12,
-                child: Lottie.asset('lottie/ani_2.json',
-                    height: MediaQuery.of(context).size.width / 1.6)),
-            Positioned(
-                left: padding < minPadding ? minPadding + 10 : padding + 10,
-                top: padding < minPadding ? minPadding : padding,
-                child: Row(
-                  children: [
-                    Text(
-                      "Health",
-                      style: GoogleFonts.dosis(
-                        textStyle: TextStyle(
-                            color: AppColors.appColors,
-                            fontWeight: FontWeight.bold,
-                            fontSize: fontSize < minFontSize
-                                ? minFontSize
-                                : fontSize),
-                      ),
-                    ),
-                    Text(
-                      "mini  ${MediaQuery.of(context).size.width.toStringAsFixed(2)}",
-                      style: GoogleFonts.dosis(
-                        textStyle: TextStyle(
-                            color: AppColors.blackColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: fontSize < minFontSize
-                                ? minFontSize
-                                : fontSize),
-                      ),
-                    ),
-                  ],
-                )),
-            AnimatedPositioned(
-                duration: Duration(microseconds: 500),
-                curve: Curves.easeInOut,
-                top: buttonTopPadding,
-                right: buttonRightPadding,
-                left: buttonLeftPadding,
-                child: Row(
-                  mainAxisAlignment: size < 650
-                      ? MainAxisAlignment.center
-                      : MainAxisAlignment.end,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (screenWidth <= 650) {
+              return const MobileMainView();
+            } else if (screenWidth > 650 && screenWidth <= 1024) {
+              return const TabletMainView();
+            } else {
+              return const DesktopMainView();
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class MobileMainView extends StatelessWidget {
+  const MobileMainView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.topLeft,
+      children: [
+        AnimatedPositioned(
+            duration: const Duration(microseconds: 500),
+            curve: Curves.easeInOut,
+            left: 0,
+            bottom: -1,
+            child: SvgPicture.asset(
+              'svg/blob-haikei.svg',
+              height: 250,
+              colorFilter:
+              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+            )),
+        AnimatedPositioned(
+            duration: const Duration(microseconds: 500),
+            curve: Curves.easeInOut,
+            right: -1,
+            top: -1,
+            child: SvgPicture.asset(
+              'svg/blob-haikei_2.svg',
+              height: MediaQuery.of(context).size.width / 2.2,
+              colorFilter:
+              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+            )),
+        Positioned(
+            left: -20,
+            bottom: -52,
+            child: Lottie.asset('lottie/ani_2.json',
+                height: 400)),
+        Positioned(
+            left: 30,
+            top: 10,
+            child: Row(
+              children: [
+                Text(
+                  "Health",
+                  style: GoogleFonts.dosis(
+                    textStyle: TextStyle(
+                        color: AppColors.appColors,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25),
+                  ),
+                ),
+                Text(
+                  "mini",
+                  style: GoogleFonts.dosis(
+                    textStyle: TextStyle(
+                        color: AppColors.blackColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25),
+                  ),
+                ),
+              ],
+            )),
+        AnimatedPositioned(
+            duration: const Duration(microseconds: 500),
+            curve: Curves.easeInOut,
+            top: 60,
+            right: 30,
+            left: 30,
+            child: Column(
+              children: [
+                Text("HealthMini: Advanced Health Analytics at Your Fingertips",
+                    style: GoogleFonts.dosis(
+                      textStyle: TextStyle(
+                          color: AppColors.blackColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 35),
+                    )),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                    "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
+                    style: GoogleFonts.lato(
+                      textStyle: const TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18),
+                    )),
+                const SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ButtonWidget(
                       text: 'Get started',
                       btnColor: Colors.white,
                       borderWidth: 2,
                       textColor: AppColors.appColors,
-                      onTab: () => Navigator.pushNamed(context, 'home'),
+                        onTab: (){
+                          String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
+                          if(country == null || country == ''){
+                            Navigator.pushNamed(context, '/user_location');
+                          }else{
+                            Navigator.pushNamed(context, '/home');
+                          }
+                        }
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     ButtonWidget(
-                      onTab: () => Navigator.pushNamed(context, 'about'),
-
+                      onTab: () => Navigator.pushNamed(context, '/about'),
                     ),
                   ],
-                )),
-            Positioned(
-                right: 2,
-                top: 2,
-                child: IconButton(
-                    onPressed: () {
-                      PopupMenuButton(
-                        itemBuilder: (context) {
-                          return [
-                            PopupMenuItem(child: Text("English")),
-                          ];
-                        },
-                      );
-                    },
-                    icon: Icon(Icons.translate))),
-            AnimatedPositioned(
-                duration: Duration(microseconds: 500),
-                curve: Curves.easeInOut,
-              top: titleTopPadding,
-                right: titleRightPadding,
-                left: titleLeftPadding,
-                child: Column(
-                  children: [
-                    Text(
-                        "HealthMini: Advanced Health Analytics at Your Fingertips",
-                      style : GoogleFonts.dosis( textStyle : TextStyle(
+                ),
+              ],
+            )),
+      ],
+    );
+  }
+}
+
+class TabletMainView extends StatelessWidget {
+  const TabletMainView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Stack(
+      alignment: Alignment.topLeft,
+      children: [
+        AnimatedPositioned(
+            duration: const Duration(microseconds: 500),
+            curve: Curves.easeInOut,
+            left: 0,
+            bottom: -1,
+            child: SvgPicture.asset(
+              'svg/blob-haikei.svg',
+              height: 320,
+              colorFilter:
+              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+            )),
+        AnimatedPositioned(
+            duration: const Duration(microseconds: 500),
+            curve: Curves.easeInOut,
+            right: -1,
+            top: -1,
+            child: SvgPicture.asset(
+              'svg/blob-haikei_2.svg',
+              height: screenWidth / 2.2,
+              colorFilter:
+              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+            )),
+        Positioned(
+            left: -30,
+            bottom: -58,
+            child: Lottie.asset('lottie/ani_2.json',
+                height: 450)),
+        Positioned(
+            left: 50, // Adjusted for tablet view
+            top: 20, // Adjusted for tablet view
+            child: Row(
+              children: [
+                Text(
+                  "Health",
+                  style: GoogleFonts.dosis(
+                    textStyle: TextStyle(
+                        color: AppColors.appColors,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30), // Adjusted for tablet view
+                  ),
+                ),
+                Text(
+                  "mini",
+                  style: GoogleFonts.dosis(
+                    textStyle: TextStyle(
+                        color: AppColors.blackColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30), // Adjusted for tablet view
+                  ),
+                ),
+              ],
+            )),
+
+        AnimatedPositioned(
+            duration: const Duration(microseconds: 500),
+            curve: Curves.easeInOut,
+            top: 100, // Adjusted for tablet view
+            right: 50, // Adjusted for tablet view
+            left: 50, // Adjusted for tablet view
+            child: Column(
+              children: [
+                Text("HealthMini: Advanced Health Analytics at Your Fingertips",
+                    textAlign: TextAlign.center, // Center align for better UI
+                    style: GoogleFonts.dosis(
+                      textStyle: TextStyle(
                           color: AppColors.blackColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: fontSize < minFontSize
-                              ? minFontSize
-                              : fontSize > 35 ? 35 : fontSize),
-                      )
+                          fontSize: 40), // Adjusted for tablet view
+                    )),
+                const SizedBox(
+                  height: 30, // Adjusted for tablet view
+                ),
+                Text(
+                    "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
+                    textAlign: TextAlign.center, // Center align for better UI
+                    style: GoogleFonts.lato(
+                      textStyle: const TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20), // Adjusted for tablet view
+                    )),
+                const SizedBox(height: 60), // Adjusted for tablet view
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonWidget(
+                      text: 'Get started',
+                      btnColor: Colors.white,
+                      borderWidth: 2,
+                      textColor: AppColors.appColors,
+                        onTab: (){
+                          String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
+                          if(country == null || country == ''){
+                            Navigator.pushNamed(context, '/user_location');
+                          }else{
+                            Navigator.pushNamed(context, '/home');
+                          }
+                        }
                     ),
-                    SizedBox(height: 20,),
-                    Text(
-                        "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
-                        style : GoogleFonts.lato( textStyle : TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                            fontSize: fontSize < minFontSize
-                                ? minFontSize - 13
-                                : fontSize > 18 ? 18 : fontSize-15),
-                        )
-                    )
-
+                    const SizedBox(
+                      width: 30, // Adjusted for tablet view
+                    ),
+                    ButtonWidget(
+                      onTab: () => Navigator.pushNamed(context, '/about'),
+                    ),
                   ],
-                )),
+                ),
+              ],
+            )),
+      ],
+    );
+  }
+}
 
-          ],
+class DesktopMainView extends StatelessWidget {
+  const DesktopMainView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Stack(
+      alignment: Alignment.topLeft,
+      children: [
+        AnimatedPositioned(
+          duration: const Duration(microseconds: 500),
+          curve: Curves.easeInOut,
+          left: 0,
+          bottom: -1,
+          child: SvgPicture.asset(
+            'svg/blob-haikei.svg',
+            height: screenWidth/3, // Keep as is for desktop view
+            colorFilter:
+            ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+          ),
         ),
-      ),
+        AnimatedPositioned(
+          duration: const Duration(microseconds: 500),
+          curve: Curves.easeInOut,
+          right: -1,
+          top: -1,
+          child: SvgPicture.asset(
+            'svg/blob-haikei_2.svg',
+            height: 400, // Keep as is for desktop view
+            colorFilter:
+            ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+          ),
+        ),
+        Positioned(
+          left: -screenWidth/30, // Keep as is for desktop view
+          bottom: -screenWidth/16, // Keep as is for desktop view
+          child: Lottie.asset('lottie/ani_2.json', height: screenWidth/2.1), // Keep as is for desktop view
+        ),
+        Positioned(
+          left: 70, // Keep as is for desktop view
+          top: 30, // Keep as is for desktop view
+          child: Row(
+            children: [
+              Text(
+                "Health",
+                style: GoogleFonts.dosis(
+                  textStyle: TextStyle(
+                    color: AppColors.appColors,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40, // Keep as is for desktop view
+                  ),
+                ),
+              ),
+              Text(
+                "mini",
+                style: GoogleFonts.dosis(
+                  textStyle: TextStyle(
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40, // Keep as is for desktop view
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        AnimatedPositioned(
+          duration: const Duration(microseconds: 500),
+          curve: Curves.easeInOut,
+          top: 150, // Adjusted for desktop view
+          right: 70, // Adjusted for desktop view
+          left: screenWidth/3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end, // Align to right
+            children: [
+              Text(
+                "HealthMini: Advanced Health Analytics at Your Fingertips",
+                textAlign: TextAlign.left, // Right align text
+                style: GoogleFonts.dosis(
+                  textStyle: TextStyle(
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 50, // Adjusted for desktop view
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 40, // Adjusted for desktop view
+              ),
+              Text(
+                "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
+                textAlign: TextAlign.left,
+                style: GoogleFonts.lato(
+                  textStyle: const TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 80),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ButtonWidget(
+                    text: 'Get started',
+                    btnColor: Colors.white,
+                    borderWidth: 2,
+                    textColor: AppColors.appColors,
+                      onTab: (){
+                        String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
+                        if(country == null || country == ''){
+                          Navigator.pushNamed(context, '/user_location');
+                        }else{
+                          Navigator.pushNamed(context, '/home');
+                        }
+                      }
+                  ),
+                  const SizedBox(
+                    width: 40,
+                  ),
+                  ButtonWidget(
+                    onTab: () => Navigator.pushNamed(context, '/about'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1375,5 +1375,9 @@ List<String> predefinedSymptomsList = [
   'persistent chills',
   'COVID-19 related muscle twitching',
   'increased susceptibility to colds',
-  'persistent runny nose post-infection'
+  'persistent runny nose post-infection',
+  "Eye pain",
+  "hives",
+  "rash",
+  "bruises"
 ];
