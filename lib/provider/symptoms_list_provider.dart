@@ -8,6 +8,7 @@ import 'package:healthmini/functions/symptoms_valid_function.dart';
 import 'package:healthmini/helper/prompt_helper.dart';
 import 'package:healthmini/models/details_model.dart';
 import 'package:healthmini/models/symptoms_list_model.dart';
+import 'package:healthmini/service/shared_preferences_service.dart';
 import 'package:healthmini/utils/snackbar.dart';
 
 enum SymptomsListState {
@@ -104,7 +105,16 @@ class SymptomsListProvider extends ChangeNotifier {
           if (res != null && res['data'] != null) {
             DetailsModel detailsModel = DetailsModel.fromJson(res);
             detailsList = detailsModel.data ?? [];
-
+            String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
+            String? state = SharedPreferencesService().getString(SharedPreferencesService().stateKey);
+            String? city = SharedPreferencesService().getString(SharedPreferencesService().cityKey);
+            await FirebaseFirestore.instance.collection('query_data').add({
+              'country': country??"India",
+              'state': state??"Gujarat",
+              'city': city??"Surat",
+              'symptoms': selectedSymptomsList,
+              'timestamp': FieldValue.serverTimestamp(),
+            });
             findSymptomsState = FindSymptomsState.loaded;
             notifyListeners();
 

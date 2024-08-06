@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:healthmini/const/colors.dart';
 import 'package:healthmini/models/symptoms_list_model.dart';
 import 'package:healthmini/provider/symptoms_list_provider.dart';
@@ -224,11 +225,14 @@ class _SymptomsDesktopViewState extends State<SymptomsDesktopView> {
                         .selectedSymptoms(widget.dataList?[index].name ?? ""),
                 child: Row(
                   children: [
+                    SizedBox(width: 10,),
                     CustomNetworkImage(
                       imageUrl: widget.dataList?[index].image ?? "",
-                      height: size / 14,
-                      width: size / 14,
+                      height: size / 40,
+                      width: size / 40,
                     ),
+                    SizedBox(width: 10,),
+
                     Expanded(
                       child: Text(
                         widget.dataList?[index].name ?? "",
