@@ -21,6 +21,7 @@ class ExerciseModel {
 
 class Data {
   String? exerciseName;
+  String? aasanName;
   String? duration;
   String? difficultyLevel;
   List<String>? steps;
@@ -28,6 +29,7 @@ class Data {
 
   Data(
       {this.exerciseName,
+        this.aasanName,
       this.duration,
       this.difficultyLevel,
       this.steps,
@@ -35,6 +37,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     exerciseName = json['exercise_name'];
+    aasanName = json['aasan_name'];
     duration = json['duration'];
     difficultyLevel = json['difficulty_level'];
     steps = json['steps'].cast<String>();
@@ -44,6 +47,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['exercise_name'] = exerciseName;
+    data['aasan_name'] = aasanName;
     data['duration'] = duration;
     data['difficulty_level'] = difficultyLevel;
     data['steps'] = steps;
