@@ -1,8 +1,13 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:healthmini/provider/exercise_provider.dart';
+import 'package:healthmini/provider/recipe_provider.dart';
+import 'package:healthmini/screens/home_screen/view/desktop_home_view.dart';
 import 'package:healthmini/screens/home_screen/view/mobile_home_view.dart';
+import 'package:healthmini/screens/home_screen/view/tablet_home_view.dart';
+import 'package:healthmini/widgets/appbar.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,59 +20,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool isLoad = true;
 
-  String? _currentSvg = '';
-  String? _currentSvg2 = '';
-  String? _currentSvg3 = '';
-  Timer? _timer;
-  Timer? _timer2;
-  Timer? _timer3;
-  final Random _random = Random();
-  final Random _random2 = Random();
-  final Random _random3 = Random();
 
   @override
   void initState() {
     super.initState();
-    _currentSvg = svgList[_random.nextInt(svgList.length)];
-    _currentSvg2 = svgList[_random2.nextInt(svgList.length)];
-    _currentSvg3 = svgList[_random3.nextInt(svgList.length)];
-    _startTimer();
+    Future.delayed(Duration(milliseconds: 100),() {
+      apiCall();
+    },);
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: _random.nextInt(6) + 5), (timer) {
-      setState(() {
-        _currentSvg = svgList[_random.nextInt(svgList.length)];
-      });
-    });
-
-    _timer2 =
-        Timer.periodic(Duration(seconds: _random2.nextInt(6) + 5), (timer) {
-          setState(() {
-            _currentSvg2 = svgList[_random2.nextInt(svgList.length)];
-          });
-        });
-
-    _timer3 =
-        Timer.periodic(Duration(seconds: _random3.nextInt(6) + 5), (timer) {
-          setState(() {
-            _currentSvg3 = svgList[_random3.nextInt(svgList.length)];
-          });
-        });
+  void apiCall()  {
+    Provider.of<ExerciseListProvider>(context,listen: false).getExerciseList(context: context);
+    Provider.of<RecipeListProvider>(context,listen: false).getRecipeList(context: context);
   }
 
-  @override
-  void dispose() {
-    _timer?.cancel();
-    _timer2?.cancel();
-    super.dispose();
-  }
 
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: const ResponsiveAppBar(),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -78,9 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
               if (screenWidth <= 650) {
                 return const MobileHomeView();
               } else if (screenWidth > 650 && screenWidth <= 1024) {
-                return  Container();
+                return  TabletHomeView();
               } else {
-                return Container();
+                return DesktopHomeView();
               }
             },
           ),
@@ -88,23 +61,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
-  List<String> svgList = [
-    'assets/svg/svg_shape/shape_1.svg',
-    'assets/svg/svg_shape/shape_2.svg',
-    'assets/svg/svg_shape/shape_3.svg',
-    'assets/svg/svg_shape/shape_4.svg',
-    'assets/svg/svg_shape/shape_5.svg',
-    'assets/svg/svg_shape/shape_6.svg',
-    'assets/svg/svg_shape/shape_7.svg',
-    'assets/svg/svg_shape/shape_8.svg',
-    'assets/svg/svg_shape/shape_9.svg',
-    'assets/svg/svg_shape/shape_10.svg',
-    'assets/svg/svg_shape/shape_11.svg',
-    'assets/svg/svg_shape/shape_12.svg',
-    'assets/svg/svg_shape/shape_13.svg',
-    'assets/svg/svg_shape/shape_14.svg'
-  ];
 
 }
