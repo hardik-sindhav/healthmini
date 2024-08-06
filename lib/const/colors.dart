@@ -6,4 +6,16 @@ class AppColors {
   static Color appColors50 = const Color(0xffb0e1ed	);
   static Color blackColor = Colors.black;
   static Color whiteColor = Colors.white;
+
+  final List<Color> tagColors = [
+    Colors.redAccent.shade100,
+    Colors.greenAccent.shade100,
+    Colors.blueAccent.shade100,
+    Colors.orangeAccent.shade100,
+    Colors.purpleAccent.shade100,
+    Colors.amber.shade100,
+    Colors.pink.shade100,
+    Colors.orange.shade100,
+  ];
+
 }
