@@ -6,6 +6,8 @@ class SharedPreferencesService {
   String countryKey = "country_key";
   String stateKey = "state_key";
   String cityKey = "city_key";
+  String ageKey = "age_key";
+  String genderKey = "gender_key";
 
   static final SharedPreferencesService _instance =
       SharedPreferencesService._internal();

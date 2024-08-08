@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:healthmini/service/shared_preferences_service.dart';
+import 'package:healthmini/utils/textstyles.dart';
 import 'package:lottie/lottie.dart';
 
 import '../const/colors.dart';
@@ -56,7 +56,7 @@ class MobileMainView extends StatelessWidget {
               'svg/blob-haikei.svg',
               height: 250,
               colorFilter:
-              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+                  ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
             )),
         AnimatedPositioned(
             duration: const Duration(microseconds: 500),
@@ -67,35 +67,28 @@ class MobileMainView extends StatelessWidget {
               'svg/blob-haikei_2.svg',
               height: MediaQuery.of(context).size.width / 2.2,
               colorFilter:
-              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+                  ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
             )),
         Positioned(
             left: -20,
             bottom: -52,
-            child: Lottie.asset('lottie/ani_2.json',
-                height: 400)),
+            child: Lottie.asset('assets/lottie/ani_1.json', height: 400)),
         Positioned(
             left: 30,
             top: 10,
             child: Row(
               children: [
+                Image.asset("assets/images/logo.png", height: 35),
+                const SizedBox(width: 5,),
                 Text(
                   "Health",
-                  style: GoogleFonts.dosis(
-                    textStyle: TextStyle(
-                        color: AppColors.appColors,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  ),
+                  style: AppTextStyles.boldTextStyles(
+                      textColor: AppColors.appColors, fontSize: 25),
                 ),
                 Text(
                   "mini",
-                  style: GoogleFonts.dosis(
-                    textStyle: TextStyle(
-                        color: AppColors.blackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  ),
+                  style: AppTextStyles.boldTextStyles(
+                      textColor: AppColors.blackColor, fontSize: 25),
                 ),
               ],
             )),
@@ -108,41 +101,37 @@ class MobileMainView extends StatelessWidget {
             child: Column(
               children: [
                 Text("HealthMini: Advanced Health Analytics at Your Fingertips",
-                    style: GoogleFonts.dosis(
-                      textStyle: TextStyle(
-                          color: AppColors.blackColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 35),
+                    style: AppTextStyles.boldTextStyles(
+                          textColor: AppColors.blackColor,
+                          fontSize: 35
                     )),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
                     "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
-                    style: GoogleFonts.lato(
-                      textStyle: const TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18),
+                    style: AppTextStyles.mediumTextStyles(
+                          textColor: Colors.black87,
+                          fontSize: 18
                     )),
                 const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ButtonWidget(
-                      text: 'Get started',
-                      btnColor: Colors.white,
-                      borderWidth: 2,
-                      textColor: AppColors.appColors,
-                        onTab: (){
-                          String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
-                          if(country == null || country == ''){
+                        text: 'Get started',
+                        btnColor: Colors.white,
+                        borderWidth: 2,
+                        textColor: AppColors.appColors,
+                        onTab: () {
+                          String? country = SharedPreferencesService()
+                              .getString(SharedPreferencesService().countryKey);
+                          if (country == null || country == '') {
                             Navigator.pushNamed(context, '/user_location');
-                          }else{
+                          } else {
                             Navigator.pushNamed(context, '/home');
                           }
-                        }
-                    ),
+                        }),
                     const SizedBox(
                       width: 20,
                     ),
@@ -177,7 +166,7 @@ class TabletMainView extends StatelessWidget {
               'svg/blob-haikei.svg',
               height: 320,
               colorFilter:
-              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+                  ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
             )),
         AnimatedPositioned(
             duration: const Duration(microseconds: 500),
@@ -188,87 +177,78 @@ class TabletMainView extends StatelessWidget {
               'svg/blob-haikei_2.svg',
               height: screenWidth / 2.2,
               colorFilter:
-              ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+                  ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
             )),
         Positioned(
             left: -30,
             bottom: -58,
-            child: Lottie.asset('lottie/ani_2.json',
-                height: 450)),
+            child: Lottie.asset('assets/lottie/ani_1.json', height: 450)),
         Positioned(
-            left: 50, // Adjusted for tablet view
-            top: 20, // Adjusted for tablet view
+            left: 50,
+            top: 20,
             child: Row(
               children: [
+                Image.asset("assets/images/logo.png", height: 40),
+                const SizedBox(width: 8),
                 Text(
                   "Health",
-                  style: GoogleFonts.dosis(
-                    textStyle: TextStyle(
-                        color: AppColors.appColors,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30), // Adjusted for tablet view
+                  style: AppTextStyles.boldTextStyles(
+                        textColor: AppColors.appColors,
+                        fontSize: 30
                   ),
                 ),
                 Text(
                   "mini",
-                  style: GoogleFonts.dosis(
-                    textStyle: TextStyle(
-                        color: AppColors.blackColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30), // Adjusted for tablet view
+                  style: AppTextStyles.boldTextStyles(
+                        textColor: AppColors.blackColor,
+                        fontSize: 30
                   ),
                 ),
               ],
             )),
-
         AnimatedPositioned(
             duration: const Duration(microseconds: 500),
             curve: Curves.easeInOut,
-            top: 100, // Adjusted for tablet view
-            right: 50, // Adjusted for tablet view
-            left: 50, // Adjusted for tablet view
+            top: 100,
+            right: 50,
+            left: 50,
             child: Column(
               children: [
-                Text("HealthMini: Advanced Health Analytics at Your Fingertips",
-                    textAlign: TextAlign.center, // Center align for better UI
-                    style: GoogleFonts.dosis(
-                      textStyle: TextStyle(
-                          color: AppColors.blackColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40), // Adjusted for tablet view
-                    )),
+                Text(
+                  "HealthMini: Advanced Health Analytics at Your Fingertips",
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.boldTextStyles(
+                      textColor: AppColors.blackColor, fontSize: 40),
+                ),
                 const SizedBox(
-                  height: 30, // Adjusted for tablet view
+                  height: 30,
                 ),
                 Text(
-                    "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
-                    textAlign: TextAlign.center, // Center align for better UI
-                    style: GoogleFonts.lato(
-                      textStyle: const TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20), // Adjusted for tablet view
-                    )),
-                const SizedBox(height: 60), // Adjusted for tablet view
+                  "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.semiBoldTextStyles(
+                      textColor: Colors.black87, fontSize: 20),
+                ),
+                const SizedBox(height: 60),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ButtonWidget(
-                      text: 'Get started',
-                      btnColor: Colors.white,
-                      borderWidth: 2,
-                      textColor: AppColors.appColors,
-                        onTab: (){
-                          String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
-                          if(country == null || country == ''){
+                        text: 'Get started',
+                        btnColor: Colors.white,
+                        borderWidth: 2,
+                        textColor: AppColors.appColors,
+                        onTab: () {
+                          String? country = SharedPreferencesService()
+                              .getString(SharedPreferencesService().countryKey);
+                          if (country == null || country == '') {
                             Navigator.pushNamed(context, '/user_location');
-                          }else{
+                          } else {
                             Navigator.pushNamed(context, '/home');
                           }
-                        }
-                    ),
+                        }),
                     const SizedBox(
-                      width: 30, // Adjusted for tablet view
+                      width: 30,
                     ),
                     ButtonWidget(
                       onTab: () => Navigator.pushNamed(context, '/about'),
@@ -299,9 +279,9 @@ class DesktopMainView extends StatelessWidget {
           bottom: -1,
           child: SvgPicture.asset(
             'svg/blob-haikei.svg',
-            height: screenWidth/3, // Keep as is for desktop view
+            height: screenWidth / 3,
             colorFilter:
-            ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+                ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
           ),
         ),
         AnimatedPositioned(
@@ -311,63 +291,56 @@ class DesktopMainView extends StatelessWidget {
           top: -1,
           child: SvgPicture.asset(
             'svg/blob-haikei_2.svg',
-            height: 400, // Keep as is for desktop view
+            height: 400,
             colorFilter:
-            ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
+                ColorFilter.mode(AppColors.appColors50, BlendMode.srcIn),
           ),
         ),
         Positioned(
-          left: -screenWidth/30, // Keep as is for desktop view
-          bottom: -screenWidth/16, // Keep as is for desktop view
-          child: Lottie.asset('lottie/ani_2.json', height: screenWidth/2.1), // Keep as is for desktop view
+          left: -screenWidth / 30,
+          bottom: -screenWidth / 16,
+          child: Lottie.asset('assets/lottie/ani_1.json',
+              height: screenWidth / 2.1),
         ),
         Positioned(
-          left: 70, // Keep as is for desktop view
-          top: 30, // Keep as is for desktop view
+          left: 70,
+          top: 30,
           child: Row(
             children: [
+              Image.asset("assets/images/logo.png", height: 50),
+              const SizedBox(width: 10,),
               Text(
                 "Health",
-                style: GoogleFonts.dosis(
-                  textStyle: TextStyle(
-                    color: AppColors.appColors,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40, // Keep as is for desktop view
-                  ),
+                style: AppTextStyles.boldTextStyles(
+                    textColor: AppColors.appColors,
+                    fontSize: 40,
                 ),
               ),
               Text(
                 "mini",
-                style: GoogleFonts.dosis(
-                  textStyle: TextStyle(
-                    color: AppColors.blackColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40, // Keep as is for desktop view
-                  ),
+                style: AppTextStyles.boldTextStyles(
+                    textColor: AppColors.blackColor,
+                    fontSize: 40,
                 ),
               ),
             ],
           ),
         ),
-
         AnimatedPositioned(
           duration: const Duration(microseconds: 500),
           curve: Curves.easeInOut,
           top: 150, // Adjusted for desktop view
           right: 70, // Adjusted for desktop view
-          left: screenWidth/3,
+          left: screenWidth / 3,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end, // Align to right
             children: [
               Text(
                 "HealthMini: Advanced Health Analytics at Your Fingertips",
                 textAlign: TextAlign.left, // Right align text
-                style: GoogleFonts.dosis(
-                  textStyle: TextStyle(
-                    color: AppColors.blackColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 50, // Adjusted for desktop view
-                  ),
+                style: AppTextStyles.boldTextStyles(
+                  textColor: AppColors.blackColor,
+                  fontSize: 50, // Adjusted for desktop view
                 ),
               ),
               const SizedBox(
@@ -376,12 +349,9 @@ class DesktopMainView extends StatelessWidget {
               Text(
                 "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
                 textAlign: TextAlign.left,
-                style: GoogleFonts.lato(
-                  textStyle: const TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 25,
-                  ),
+                style: AppTextStyles.mediumTextStyles(
+                  textColor: Colors.black87,
+                  fontSize: 25,
                 ),
               ),
               const SizedBox(height: 80),
@@ -389,19 +359,19 @@ class DesktopMainView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ButtonWidget(
-                    text: 'Get started',
-                    btnColor: Colors.white,
-                    borderWidth: 2,
-                    textColor: AppColors.appColors,
-                      onTab: (){
-                        String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
-                        if(country == null || country == ''){
+                      text: 'Get started',
+                      btnColor: Colors.white,
+                      borderWidth: 2,
+                      textColor: AppColors.appColors,
+                      onTab: () {
+                        String? country = SharedPreferencesService()
+                            .getString(SharedPreferencesService().countryKey);
+                        if (country == null || country == '') {
                           Navigator.pushNamed(context, '/user_location');
-                        }else{
+                        } else {
                           Navigator.pushNamed(context, '/home');
                         }
-                      }
-                  ),
+                      }),
                   const SizedBox(
                     width: 40,
                   ),

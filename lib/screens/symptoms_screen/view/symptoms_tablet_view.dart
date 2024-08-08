@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:healthmini/const/colors.dart';
 import 'package:healthmini/models/symptoms_list_model.dart';
-import 'package:healthmini/provider/symptoms_list_provider.dart';
-import 'package:healthmini/utils/snackbar.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:healthmini/widgets/custom_network_image.dart';
-import 'package:provider/provider.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class SymptomsTabletView extends StatefulWidget {
   final List<SymptomsListModel>? dataList;
@@ -33,7 +27,6 @@ class _SymptomsTabletViewState extends State<SymptomsTabletView> {
     double size = MediaQuery.of(context).size.width;
     return ListView(
       children: [
-        const SizedBox(height: 30),
         Text(
           "Your symptoms : ",
           style: AppTextStyles.semiBoldTextStyles(
@@ -224,10 +217,16 @@ class _SymptomsTabletViewState extends State<SymptomsTabletView> {
                         .selectedSymptoms(widget.dataList?[index].name ?? ""),
                 child: Row(
                   children: [
+                    SizedBox(
+                      width: 10,
+                    ),
                     CustomNetworkImage(
                       imageUrl: widget.dataList?[index].image ?? "",
-                      height: size / 14,
-                      width: size / 14,
+                      height: size / 25,
+                      width: size / 25,
+                    ),
+                    SizedBox(
+                      width: 10,
                     ),
                     Expanded(
                       child: Text(

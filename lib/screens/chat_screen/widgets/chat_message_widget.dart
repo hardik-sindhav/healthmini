@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:healthmini/const/colors.dart';
 import 'package:healthmini/models/chat_message_model.dart';
-import 'package:healthmini/utils/textstyles.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class ChatMessageWidget extends StatelessWidget {
   final ChatMessageModel? message;
@@ -16,11 +13,23 @@ class ChatMessageWidget extends StatelessWidget {
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
-        crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            margin: EdgeInsets.only(left: isUser ? size > 600 ? 16 : 8 : 0,right: isUser ? 0 : size > 600 ? 16 : 8,bottom: 3),
+            margin: EdgeInsets.only(
+                left: isUser
+                    ? size > 600
+                        ? 16
+                        : 8
+                    : 0,
+                right: isUser
+                    ? 0
+                    : size > 600
+                        ? 16
+                        : 8,
+                bottom: 3),
             decoration: BoxDecoration(
               color: isUser ? AppColors.appColors : Colors.grey[300],
               borderRadius: BorderRadius.only(
@@ -41,22 +50,32 @@ class ChatMessageWidget extends StatelessWidget {
           const SizedBox(height: 2),
           Row(
             children: [
-              isUser ? Container() : InkWell(
-                  onTap: () {
-                    Clipboard.setData(ClipboardData(text: message?.text ?? "")).then((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Text copied to clipboard')),
-                      );
-                    });
-                  },
-                  child: Icon(Icons.copy_rounded,color: Colors.grey[500],size: 20)),
+              isUser
+                  ? Container()
+                  : InkWell(
+                      onTap: () {
+                        Clipboard.setData(
+                                ClipboardData(text: message?.text ?? ""))
+                            .then((_) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                              'Text copied to clipboard',
+                              style:
+                                  AppTextStyles.mediumTextStyles(fontSize: 16),
+                            )),
+                          );
+                        });
+                      },
+                      child: Icon(Icons.copy_rounded,
+                          color: Colors.grey[500], size: 20)),
             ],
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
         ],
       ),
     );
   }
-
-
 }

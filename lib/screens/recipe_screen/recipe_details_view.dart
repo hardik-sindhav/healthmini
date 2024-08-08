@@ -1,15 +1,6 @@
-import 'dart:math';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:healthmini/const/colors.dart';
-import 'package:healthmini/provider/recipe_provider.dart';
-import 'package:healthmini/utils/snackbar.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:healthmini/widgets/network_image.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../models/recipe_model.dart';
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
+import 'package:healthmini/models/recipe_model.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class RecipeDetailView extends StatefulWidget {
   const RecipeDetailView({
@@ -21,14 +12,6 @@ class RecipeDetailView extends StatefulWidget {
 }
 
 class _RecipeDetailViewState extends State<RecipeDetailView> {
-  final List<Color> _tagColors = [
-    Colors.redAccent,
-    Colors.greenAccent,
-    Colors.blueAccent,
-    Colors.orangeAccent,
-    Colors.purpleAccent,
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Consumer<RecipeListProvider>(builder: (context, value, child) {
@@ -72,15 +55,12 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         ),
         body: LayoutBuilder(builder: (context, constraints) {
           if (constraints.maxWidth > 900) {
-            // Desktop Layout
             return _buildDesktopLayout(context,
                 data: value.recipeList[0].data, imageUrl: imageUrl);
           } else if (constraints.maxWidth > 600) {
-            // Tablet Layout
             return _buildTabletLayout(context,
                 data: value.recipeList[0].data, imageUrl: imageUrl);
           } else {
-            // Mobile Layout
             return _buildMobileLayout(context,
                 data: value.recipeList[0].data, imageUrl: imageUrl);
           }
@@ -144,7 +124,6 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
     } else {
       showCustomSnackbar(context, "Something went wrong. Please try again.",
           MessageType.error);
-      print('Could not launch $youtubeUrl');
     }
   }
 
@@ -203,13 +182,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
         const SizedBox(height: 20),
         Text(
           "Ingredients:",
-          style: AppTextStyles.boldTextStyles(
-              fontSize: 15),
+          style: AppTextStyles.boldTextStyles(fontSize: 15),
         ),
         ...?data?.ingredients?.map((ingredient) => Text(
               "- $ingredient",
-              style: AppTextStyles.mediumTextStyles(
-                  fontSize: 16),
+              style: AppTextStyles.mediumTextStyles(fontSize: 16),
             )),
         const SizedBox(height: 20),
         Text(
@@ -258,13 +235,16 @@ class _RecipeDetailViewState extends State<RecipeDetailView> {
             "Dietary Tags:",
             style: AppTextStyles.boldTextStyles(fontSize: 15),
           ),
-          SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           Wrap(
             spacing: 8.0,
             runSpacing: 4.0,
             children: data!.dietaryTags!.map((tag) {
               final random = Random();
-              final color = AppColors().tagColors[random.nextInt(AppColors().tagColors.length)];
+              final color = AppColors()
+                  .tagColors[random.nextInt(AppColors().tagColors.length)];
               return Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 5),

@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="healthmini"
+        android:label="HealthMini"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

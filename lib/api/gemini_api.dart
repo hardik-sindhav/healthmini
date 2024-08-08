@@ -1,14 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
-
+import 'package:healthmini/utils/general_imports.dart';
 
 class GeminiApi {
   Future callGemini(String prompt) async {
     var apiKey = dotenv.env['GEMINI_API_KEY'];
     if (apiKey == null) {
-      print('No \$API_KEY environment variable');
       exit(1);
     }
 
@@ -23,14 +18,10 @@ class GeminiApi {
     final response = await model.generateContent(content);
 
     try {
-      final jsonResponse = jsonDecode(response.text??"");
-      print(jsonResponse);
+      final jsonResponse = jsonDecode(response.text ?? "");
       return jsonResponse;
     } catch (e) {
-      print('Failed to decode JSON: $e');
       return null;
     }
   }
 }
-
-

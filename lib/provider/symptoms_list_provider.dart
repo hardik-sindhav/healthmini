@@ -1,15 +1,7 @@
 // ignore_for_file: collection_methods_unrelated_type, use_build_context_synchronously
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:healthmini/api/gemini_api.dart';
-import 'package:healthmini/functions/general_function.dart';
-import 'package:healthmini/functions/symptoms_valid_function.dart';
-import 'package:healthmini/helper/prompt_helper.dart';
 import 'package:healthmini/models/details_model.dart';
 import 'package:healthmini/models/symptoms_list_model.dart';
-import 'package:healthmini/service/shared_preferences_service.dart';
-import 'package:healthmini/utils/snackbar.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 enum SymptomsListState {
   initial,
@@ -49,6 +41,7 @@ class SymptomsListProvider extends ChangeNotifier {
       symptomsList = querySnapshot.docs
           .map((doc) => SymptomsListModel.fromFirestore(doc.data()))
           .toList();
+      selectedSymptomsList = [];
       setSymptomsListState(SymptomsListState.loaded);
     } catch (error) {
       setSymptomsListState(SymptomsListState.error);
@@ -94,47 +87,48 @@ class SymptomsListProvider extends ChangeNotifier {
 
     try {
       if (selectedSymptomsList.isNotEmpty) {
-        int selectedSymptomsValid = SymptomsValidFunction()
-            .checkSubstringMatches(userPhrases: selectedSymptomsList);
+        String? country = SharedPreferencesService()
+            .getString(SharedPreferencesService().countryKey);
 
-        if (selectedSymptomsValid > 2) {
-          var res = await GeminiApi().callGemini(
-              PromptHelper().generatePromptWithSymptoms(selectedSymptomsList));
+        String? state = SharedPreferencesService()
+            .getString(SharedPreferencesService().stateKey);
 
+        String? city = SharedPreferencesService()
+            .getString(SharedPreferencesService().cityKey);
 
-          if (res != null && res['data'] != null) {
-            DetailsModel detailsModel = DetailsModel.fromJson(res);
-            detailsList = detailsModel.data ?? [];
-            String? country = SharedPreferencesService().getString(SharedPreferencesService().countryKey);
-            String? state = SharedPreferencesService().getString(SharedPreferencesService().stateKey);
-            String? city = SharedPreferencesService().getString(SharedPreferencesService().cityKey);
-            await FirebaseFirestore.instance.collection('query_data').add({
-              'country': country??"India",
-              'state': state??"Gujarat",
-              'city': city??"Surat",
-              'symptoms': selectedSymptomsList,
-              'timestamp': FieldValue.serverTimestamp(),
-            });
-            findSymptomsState = FindSymptomsState.loaded;
-            notifyListeners();
+        String? age = SharedPreferencesService()
+            .getString(SharedPreferencesService().ageKey);
 
-            print(res);
-          } else if (res['message'] != '') {
-            message = res['message'];
-            findSymptomsState = FindSymptomsState.loaded;
-            notifyListeners();
-          } else {
-            message = "An error occurred. Please try again.";
-            showCustomSnackbar(context, 'An error occurred. Please try again.',
-                MessageType.warning);
-            findSymptomsState = FindSymptomsState.error;
-            notifyListeners();
-          }
+        String? gender = SharedPreferencesService()
+            .getString(SharedPreferencesService().genderKey);
+
+        var res = await GeminiApi().callGemini(PromptHelper()
+            .generatePromptWithSymptoms(selectedSymptomsList, city ?? 'Surat',
+                state ?? "Gujarat", country ?? 'India',
+                age: int.parse(age ?? "0"), gender: gender));
+
+        if (res != null && res['data'] != null) {
+          DetailsModel detailsModel = DetailsModel.fromJson(res);
+          detailsList = detailsModel.data ?? [];
+          await FirebaseFirestore.instance.collection('query_data').add({
+            'country': country ?? "",
+            'state': state ?? "",
+            'city': city ?? "",
+            'symptoms': selectedSymptomsList,
+            'age': age,
+            'gender': gender,
+            'timestamp': FieldValue.serverTimestamp(),
+          });
+          findSymptomsState = FindSymptomsState.loaded;
+          notifyListeners();
+        } else if (res['message'] != '') {
+          message = res['message'];
+          findSymptomsState = FindSymptomsState.loaded;
+          notifyListeners();
         } else {
-          message = "You enter or selected symptoms are not valid or not match with any symptoms !";
-
-          showCustomSnackbar(
-              context, 'You enter or selected symptoms are not valid or not match with any symptoms !', MessageType.error);
+          message = "An error occurred. Please try again.";
+          showCustomSnackbar(context, 'An error occurred. Please try again.',
+              MessageType.warning);
           findSymptomsState = FindSymptomsState.error;
           notifyListeners();
         }
@@ -150,7 +144,6 @@ class SymptomsListProvider extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      print('Error occurred: $e');
       showCustomSnackbar(
           context, 'An error occurred. Please try again.', MessageType.error);
       findSymptomsState = FindSymptomsState.error;

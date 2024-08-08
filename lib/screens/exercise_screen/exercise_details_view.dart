@@ -1,16 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:healthmini/const/colors.dart';
-import 'package:healthmini/provider/exercise_provider.dart';
-import 'package:healthmini/utils/snackbar.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:healthmini/widgets/network_image.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../models/exercise_model.dart';
+import 'package:healthmini/models/exercise_model.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class ExerciseDetailView extends StatefulWidget {
   const ExerciseDetailView({
@@ -123,7 +114,6 @@ class _ExerciseDetailViewState extends State<ExerciseDetailView> {
       await launch(youtubeUrl);
     } else {
       showCustomSnackbar(context, "Something went wrong. Please try again.", MessageType.error);
-      print('Could not launch $youtubeUrl');
     }
   }
 

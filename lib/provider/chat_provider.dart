@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:healthmini/api/gemini_api.dart';
-import 'package:healthmini/helper/prompt_helper.dart';
 import 'package:healthmini/models/chat_message_model.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 enum ChatState {
   initial,
@@ -17,7 +15,8 @@ class ChatProvider extends ChangeNotifier {
   final List<ChatMessageModel> messages = [
     ChatMessageModel(
       id: '1',
-      text: 'Hi, I’m HealthMini! Ready to help you with tips and advice for a healthier lifestyle. How can I assist you today ?',
+      text:
+          'Hi, I’m HealthMini! Ready to help you with tips and advice for a healthier lifestyle. How can I assist you today ?',
       isUser: false,
     ),
   ];
@@ -51,7 +50,7 @@ class ChatProvider extends ChangeNotifier {
       if (scrollController.hasClients) {
         scrollController.animateTo(
           scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );
       }

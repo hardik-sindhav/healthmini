@@ -1,13 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:healthmini/const/colors.dart';
 import 'package:healthmini/models/symptoms_list_model.dart';
-import 'package:healthmini/provider/symptoms_list_provider.dart';
-import 'package:healthmini/utils/snackbar.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:healthmini/widgets/custom_network_image.dart';
-import 'package:provider/provider.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class SymptomsDesktopView extends StatefulWidget {
   final List<SymptomsListModel>? dataList;
@@ -36,7 +29,6 @@ class _SymptomsDesktopViewState extends State<SymptomsDesktopView> {
       padding: EdgeInsets.symmetric(
           horizontal: size / 50), // Adjust padding for desktop
       children: [
-        const SizedBox(height: 40),
         Text(
           "Your symptoms : ",
           style: AppTextStyles.semiBoldTextStyles(
@@ -107,10 +99,13 @@ class _SymptomsDesktopViewState extends State<SymptomsDesktopView> {
                         InkWell(
                           borderRadius: BorderRadius.circular(100),
                           onTap: () {
-                            if(widget.selectedSymptomsList!.length > 1){
+                            if (widget.selectedSymptomsList!.length > 1) {
                               Navigator.pushNamed(context, '/details_page');
-                            }else{
-                              showCustomSnackbar(context, "Pls select 2 - 4 symptoms to get good result.", MessageType.warning);
+                            } else {
+                              showCustomSnackbar(
+                                  context,
+                                  "Pls select 2 - 4 symptoms to get good result.",
+                                  MessageType.warning);
                             }
                           },
                           child: Container(
@@ -154,8 +149,7 @@ class _SymptomsDesktopViewState extends State<SymptomsDesktopView> {
                   cursorColor: AppColors.appColors,
                   onSubmitted: (value) => addSymptoms(),
                   onEditingComplete: () => addSymptoms(),
-                  style: AppTextStyles.mediumTextStyles(
-                      fontSize: 14),
+                  style: AppTextStyles.mediumTextStyles(fontSize: 14),
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.only(bottom: 1),
                     hintText: "Enter your symptoms",
@@ -200,7 +194,7 @@ class _SymptomsDesktopViewState extends State<SymptomsDesktopView> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.dataList?.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, // More columns for desktops
+            crossAxisCount: 4,
             mainAxisExtent: size / 20,
             crossAxisSpacing: 12,
             mainAxisSpacing: 10,
@@ -225,14 +219,17 @@ class _SymptomsDesktopViewState extends State<SymptomsDesktopView> {
                         .selectedSymptoms(widget.dataList?[index].name ?? ""),
                 child: Row(
                   children: [
-                    SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     CustomNetworkImage(
                       imageUrl: widget.dataList?[index].image ?? "",
-                      height: size / 40,
-                      width: size / 40,
+                      height: size / 45,
+                      width: size / 45,
                     ),
-                    SizedBox(width: 10,),
-
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Expanded(
                       child: Text(
                         widget.dataList?[index].name ?? "",

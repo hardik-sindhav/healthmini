@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:healthmini/const/colors.dart';
 import 'package:healthmini/utils/textstyles.dart';
 
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appName = 'HealthMini';
-  final String appLogo = 'assets/images/Weight loss (1).png';
+  final String appLogo = 'assets/images/logo.png';
   const ResponsiveAppBar({super.key});
 
   @override
@@ -28,7 +29,20 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Image.asset(appLogo, height: 40),
           const SizedBox(width: 10),
-          Text(appName,style: AppTextStyles.mediumTextStyles(),),
+          Text(
+            "Health",
+            style: AppTextStyles.semiBoldTextStyles(
+              textColor: AppColors.appColors,
+              fontSize: 30,
+            ),
+          ),
+          Text(
+            "mini",
+            style: AppTextStyles.semiBoldTextStyles(
+              textColor: AppColors.blackColor,
+              fontSize: 30,
+            ),
+          ),
           const Spacer(),
           _buildMenuItems(context),
         ],
@@ -41,11 +55,62 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          Image.asset(appLogo, height: 40),
+          Image.asset(appLogo, height: 30),
           const SizedBox(width: 10),
-          Text(appName,style: AppTextStyles.mediumTextStyles(),),
+          Text(
+            "Health",
+            style: AppTextStyles.semiBoldTextStyles(
+              textColor: AppColors.appColors,
+              fontSize: 25,
+            ),
+          ),
+          Text(
+            "mini",
+            style: AppTextStyles.semiBoldTextStyles(
+              textColor: AppColors.blackColor,
+              fontSize: 25,
+            ),
+          ),
           const Spacer(),
-          _buildMenuItems(context),
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              _handleMenuSelection(context, value);
+            },
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                    value: 'about',
+                    child: Text(
+                      'About Us',
+                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                    )),
+                PopupMenuItem(
+                    value: 'contact',
+                    child: Text(
+                      'Contact Us',
+                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                    )),
+                PopupMenuItem(
+                    value: 'reviews',
+                    child: Text(
+                      'Reviews',
+                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                    )),
+                PopupMenuItem(
+                    value: 'privacy',
+                    child: Text(
+                      'Privacy Policy',
+                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                    )),
+                PopupMenuItem(
+                    value: 'terms',
+                    child: Text(
+                      'Terms & Conditions',
+                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                    )),
+              ];
+            },
+          ),
         ],
       ),
     );
@@ -56,9 +121,22 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          Image.asset(appLogo, height: 40),
+          Image.asset(appLogo, height: 30),
           const SizedBox(width: 10),
-          Text(appName,style: AppTextStyles.mediumTextStyles(fontSize: 22),),
+          Text(
+            "Health",
+            style: AppTextStyles.semiBoldTextStyles(
+              textColor: AppColors.appColors,
+              fontSize: 20,
+            ),
+          ),
+          Text(
+            "mini",
+            style: AppTextStyles.semiBoldTextStyles(
+              textColor: AppColors.blackColor,
+              fontSize: 20,
+            ),
+          ),
         ],
       ),
       actions: [
@@ -68,10 +146,36 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           itemBuilder: (context) {
             return [
-               PopupMenuItem(value: 'about', child: Text('About Us',style: AppTextStyles.mediumTextStyles(fontSize: 14),)),
-               PopupMenuItem(value: 'contact', child: Text('Contact Us',style: AppTextStyles.mediumTextStyles(fontSize: 14),)),
-               PopupMenuItem(value: 'privacy', child: Text('Privacy Policy',style: AppTextStyles.mediumTextStyles(fontSize: 14),)),
-               PopupMenuItem(value: 'terms', child: Text('Terms & Conditions',style: AppTextStyles.mediumTextStyles(fontSize: 14),)),
+              PopupMenuItem(
+                  value: 'about',
+                  child: Text(
+                    'About Us',
+                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                  )),
+              PopupMenuItem(
+                  value: 'contact',
+                  child: Text(
+                    'Contact Us',
+                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                  )),
+              PopupMenuItem(
+                  value: 'reviews',
+                  child: Text(
+                    'Reviews',
+                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                  )),
+              PopupMenuItem(
+                  value: 'privacy',
+                  child: Text(
+                    'Privacy Policy',
+                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                  )),
+              PopupMenuItem(
+                  value: 'terms',
+                  child: Text(
+                    'Terms & Conditions',
+                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                  )),
             ];
           },
         ),
@@ -82,10 +186,36 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildMenuItems(BuildContext context) {
     return Row(
       children: [
-        TextButton(onPressed: () => _handleMenuSelection(context, 'about'), child: const Text('About Us')),
-        TextButton(onPressed: () => _handleMenuSelection(context, 'contact'), child: const Text('Contact Us')),
-        TextButton(onPressed: () => _handleMenuSelection(context, 'privacy'), child: const Text('Privacy Policy')),
-        TextButton(onPressed: () => _handleMenuSelection(context, 'terms'), child: const Text('Terms & Conditions')),
+        TextButton(
+            onPressed: () => _handleMenuSelection(context, 'about'),
+            child: Text(
+              'About Us',
+              style: AppTextStyles.mediumTextStyles(fontSize: 14),
+            )),
+        TextButton(
+            onPressed: () => _handleMenuSelection(context, 'contact'),
+            child: Text(
+              'Contact Us',
+              style: AppTextStyles.mediumTextStyles(fontSize: 14),
+            )),
+        TextButton(
+            onPressed: () => _handleMenuSelection(context, 'reviews'),
+            child: Text(
+              'Reviews',
+              style: AppTextStyles.mediumTextStyles(fontSize: 14),
+            )),
+        TextButton(
+            onPressed: () => _handleMenuSelection(context, 'privacy'),
+            child: Text(
+              'Privacy Policy',
+              style: AppTextStyles.mediumTextStyles(fontSize: 14),
+            )),
+        TextButton(
+            onPressed: () => _handleMenuSelection(context, 'terms'),
+            child: Text(
+              'Terms & Conditions',
+              style: AppTextStyles.mediumTextStyles(fontSize: 14),
+            )),
       ],
     );
   }
@@ -93,18 +223,19 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   void _handleMenuSelection(BuildContext context, String value) {
     switch (value) {
       case 'about':
-      // Navigate to About Us page /about
         Navigator.pushNamed(context, '/about');
         break;
       case 'contact':
         Navigator.pushNamed(context, '/contact_page');
-
+        break;
+      case 'reviews':
+        Navigator.pushNamed(context, '/reviews');
         break;
       case 'privacy':
-      Navigator.pushNamed(context, '/privacy_policy');
+        Navigator.pushNamed(context, '/privacy_policy');
         break;
       case 'terms':
-      // Navigate to Terms & Conditions page
+        Navigator.pushNamed(context, '/terms_conditions');
         break;
     }
   }

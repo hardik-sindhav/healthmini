@@ -1,13 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:healthmini/const/colors.dart';
 import 'package:healthmini/models/symptoms_list_model.dart';
-import 'package:healthmini/provider/symptoms_list_provider.dart';
-import 'package:healthmini/utils/snackbar.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:provider/provider.dart';
-
-import '../../../widgets/custom_network_image.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class SymptomsMobileView extends StatefulWidget {
   final List<SymptomsListModel>? dataList;
@@ -33,9 +26,6 @@ class _SymptomsMobileViewState extends State<SymptomsMobileView> {
     double size = MediaQuery.of(context).size.width;
     return ListView(
       children: [
-        const SizedBox(
-          height: 20,
-        ),
         Text(
           "Your symptoms : ",
           style: AppTextStyles.semiBoldTextStyles(

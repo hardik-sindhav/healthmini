@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:healthmini/const/colors.dart';
-import 'package:healthmini/provider/chat_provider.dart';
-import 'package:healthmini/screens/chat_screen/widgets/chat_message_widget.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:provider/provider.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});

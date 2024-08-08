@@ -1,14 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:healthmini/const/colors.dart';
-import 'package:healthmini/provider/exercise_provider.dart';
-import 'package:healthmini/provider/recipe_provider.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:healthmini/widgets/network_image.dart';
-import 'package:healthmini/widgets/shimmer_effect.dart';
-import 'package:lottie/lottie.dart';
-import 'package:marquee/marquee.dart';
-import 'package:provider/provider.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class DesktopHomeView extends StatelessWidget {
   const DesktopHomeView({super.key});
@@ -86,7 +76,8 @@ class DesktopHomeView extends StatelessWidget {
                       ButtonCard(
                         isCard: true,
                         label: 'AI Assistant',
-                        title: '',
+                        title:
+                            'Converse with Your Custom AI Health Advisor for Personalized Wellness Insights.',
                         hideTitle: true,
                         iconData: Icons.smart_toy_outlined,
                         btnText: "Chat Now",
@@ -97,7 +88,8 @@ class DesktopHomeView extends StatelessWidget {
                         label: 'Analysis',
                         iconData: Icons.assessment_outlined,
                         isCard: true,
-                        title: '',
+                        title:
+                            'Discover Worldwide Symptom Data with Your Personalized Health Dashboard.',
                         hideTitle: true,
                         btnText: "Check Now",
                         onTab: () =>
@@ -153,6 +145,7 @@ class HomeBanner extends StatelessWidget {
             child: InkWell(
               hoverColor: Colors.transparent,
               onTap: () => Navigator.pushNamed(context, '/find_symptoms'),
+              borderRadius: BorderRadius.circular(20),
               child: Container(
                 height: size / 25,
                 width: size / 6,
@@ -214,14 +207,13 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width;
     return Expanded(
       child: InkWell(
         hoverColor: Colors.transparent,
         onTap: onTab,
         child: Container(
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          margin: const EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 10),
           padding: EdgeInsets.zero,
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -348,12 +340,12 @@ class ButtonCard extends StatelessWidget {
               bottom: 10,
               left: 15,
               child: SvgPicture.asset(imageUrl ?? 'assets/svg/health_icon.svg',
-                  height: size / 15),
+                  height: size / 22),
             ),
             Positioned(
               top: 25,
               right: 15,
-              left: size / 6,
+              left: size / 8,
               child: Text(title ?? "",
                   textAlign: TextAlign.left,
                   style: AppTextStyles.mediumTextStyles(fontSize: size / 65)),
@@ -438,18 +430,26 @@ class ErrorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        margin: const EdgeInsets.only(top: 20),
-        decoration: const BoxDecoration(
-          color: Colors.redAccent,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-        ),
-        child: Center(
-          child: Text(
-            'Failed to load $label data',
-            style: AppTextStyles.mediumTextStyles(
-                textColor: Colors.white, fontSize: 16),
+      child: InkWell(
+        onTap: () {
+          Provider.of<ExerciseListProvider>(context, listen: false)
+              .getExerciseList(context: context);
+          Provider.of<RecipeListProvider>(context, listen: false)
+              .getRecipeList(context: context);
+        },
+        child: Container(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          margin: const EdgeInsets.only(top: 20),
+          decoration: const BoxDecoration(
+            color: Colors.redAccent,
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
+          child: Center(
+            child: Text(
+              'Failed to load $label data. Click Here to reload.',
+              style: AppTextStyles.mediumTextStyles(
+                  textColor: Colors.white, fontSize: 16),
+            ),
           ),
         ),
       ),
