@@ -70,6 +70,9 @@ class ReviewsPage extends StatelessWidget {
                 children: List.generate(shimmerColumns, (columnIndex) {
                   return Expanded(
                     child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15)),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
                       margin: const EdgeInsets.all(10.0),
                       child: Shimmer.fromColors(
                         baseColor: Colors.grey[300]!,

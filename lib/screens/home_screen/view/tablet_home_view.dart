@@ -201,14 +201,15 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      focusColor: Colors.transparent,
       onTap: onTab,
       borderRadius: BorderRadius.circular(15),
-      hoverColor: Colors.transparent,
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        margin: const EdgeInsets.only(top: 20),
         padding: EdgeInsets.zero,
-        height: 220,
+        height: MediaQuery.of(context).size.width / 2,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -405,8 +406,7 @@ class LoadingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      margin: const EdgeInsets.only(top: 20),
-      height: 220,
+      height: MediaQuery.of(context).size.width / 2,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(15)),

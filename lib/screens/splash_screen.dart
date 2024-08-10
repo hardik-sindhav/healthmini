@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (country == null || country == '') {
           Navigator.pushNamed(context, '/user_location');
         } else {
-          Navigator.pushNamed(context, '/home');
+          Navigator.pushNamedAndRemoveUntil(context, '/home',(route) => true,);
         }
       },
     );

@@ -53,7 +53,6 @@ class _AllCasesScreenState extends State<AllCasesScreen> {
     Map<String, int> genderCounts = {'Male': 0, 'Female': 0, 'Other': 0};
     Map<String, String> ageCounts = {};
 
-// Example: Iterate through your sorted cases
     for (var caseEntry in _sortedCases) {
       // Count Symptoms
       List<String> symptoms = List<String>.from(caseEntry['symptoms']);
@@ -104,6 +103,7 @@ class _AllCasesScreenState extends State<AllCasesScreen> {
               ? Container()
               : size <= 700
                   ? Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         _buildSymptomCountTable(sortedSymptomCounts),
                         const SizedBox(height: 20),
@@ -113,6 +113,7 @@ class _AllCasesScreenState extends State<AllCasesScreen> {
                       ],
                     )
                   : Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                             child:

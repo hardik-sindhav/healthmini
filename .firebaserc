@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "healthmini-cea05",
+    "production": "healthmini-cea05"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

@@ -209,6 +209,9 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      focusColor: Colors.transparent,
       onTap: onTab,
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,

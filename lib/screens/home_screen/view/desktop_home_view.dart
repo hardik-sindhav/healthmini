@@ -411,7 +411,7 @@ class LoadingCard extends StatelessWidget {
     return Expanded(
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        margin: const EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 10),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(15)),

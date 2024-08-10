@@ -110,15 +110,21 @@ class SymptomsListProvider extends ChangeNotifier {
         if (res != null && res['data'] != null) {
           DetailsModel detailsModel = DetailsModel.fromJson(res);
           detailsList = detailsModel.data ?? [];
-          await FirebaseFirestore.instance.collection('query_data').add({
-            'country': country ?? "",
-            'state': state ?? "",
-            'city': city ?? "",
-            'symptoms': selectedSymptomsList,
-            'age': age,
-            'gender': gender,
-            'timestamp': FieldValue.serverTimestamp(),
-          });
+          if (country != "" ||
+              city != "" ||
+              state != "" ||
+              age != "" ||
+              gender != "") {
+            await FirebaseFirestore.instance.collection('query_data').add({
+              'country': country ?? "",
+              'state': state ?? "",
+              'city': city ?? "",
+              'symptoms': selectedSymptomsList,
+              'age': age,
+              'gender': gender,
+              'timestamp': FieldValue.serverTimestamp(),
+            });
+          }
           findSymptomsState = FindSymptomsState.loaded;
           notifyListeners();
         } else if (res['message'] != '') {

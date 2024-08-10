@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:healthmini/service/shared_preferences_service.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:intl/intl.dart'; // For formatting date
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:healthmini/utils/general_imports.dart';
+import 'package:intl/intl.dart';
 
 class UserProfileSetupScreen extends StatefulWidget {
   const UserProfileSetupScreen({super.key});
@@ -164,8 +163,7 @@ class _UserProfileSetupScreenState extends State<UserProfileSetupScreen> {
                     gender = value;
                   });
                   await SharedPreferencesService().setString(
-                      SharedPreferencesService().genderKey,
-                      value??'');
+                      SharedPreferencesService().genderKey, value ?? '');
                 },
               ),
             ),
@@ -183,8 +181,7 @@ class _UserProfileSetupScreenState extends State<UserProfileSetupScreen> {
                     gender = value;
                   });
                   await SharedPreferencesService().setString(
-                      SharedPreferencesService().genderKey,
-                      value??'');
+                      SharedPreferencesService().genderKey, value ?? '');
                 },
               ),
             ),
@@ -202,8 +199,7 @@ class _UserProfileSetupScreenState extends State<UserProfileSetupScreen> {
                     gender = value;
                   });
                   await SharedPreferencesService().setString(
-                      SharedPreferencesService().genderKey,
-                      value??'');
+                      SharedPreferencesService().genderKey, value ?? '');
                 },
               ),
             ),

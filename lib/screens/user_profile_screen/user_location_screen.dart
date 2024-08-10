@@ -1,8 +1,7 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:csc_picker/csc_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:healthmini/service/shared_preferences_service.dart';
-import 'package:healthmini/utils/textstyles.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class UserLocationScreen extends StatefulWidget {
   const UserLocationScreen({super.key});
@@ -14,10 +13,12 @@ class UserLocationScreen extends StatefulWidget {
 class _UserLocationScreenState extends State<UserLocationScreen> {
   String? countryValue, stateValue, cityValue;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           "Select your location",
           style: AppTextStyles.mediumTextStyles(fontSize: 20),
@@ -26,13 +27,10 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth > 900) {
-            // Desktop Layout
             return _buildDesktopLayout(context);
           } else if (constraints.maxWidth > 600) {
-            // Tablet Layout
             return _buildTabletLayout(context);
           } else {
-            // Mobile Layout
             return _buildMobileLayout(context);
           }
         },

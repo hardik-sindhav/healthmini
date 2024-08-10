@@ -63,6 +63,8 @@ export 'package:healthmini/widgets/custom_network_image.dart';
 export 'package:healthmini/screens/symptoms_screen/view/symptoms_desktop_view.dart';
 export 'package:healthmini/screens/symptoms_screen/view/symptoms_mobile_view.dart';
 export 'package:healthmini/screens/symptoms_screen/view/symptoms_tablet_view.dart';
+export 'package:octo_image/octo_image.dart';
+export 'package:cached_network_image/cached_network_image.dart';
 
 
 

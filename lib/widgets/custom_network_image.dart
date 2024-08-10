@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'shimmer_loading.dart';  // Ensure to import the ShimmerLoading widget
+import 'shimmer_loading.dart';
 
 class CustomNetworkImage extends StatelessWidget {
   final String imageUrl;
@@ -23,7 +23,10 @@ class CustomNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      placeholder: (context, url) =>  ShimmerLoading(width: width,height: height,),
+      placeholder: (context, url) => ShimmerLoading(
+        width: width,
+        height: height,
+      ),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }

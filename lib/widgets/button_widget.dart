@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:healthmini/const/colors.dart';
-import 'package:healthmini/utils/textstyles.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String? text;

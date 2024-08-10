@@ -6,7 +6,8 @@ class MapUtils {
   MapUtils._();
 
   static Future<void> openMap(String query) async {
-    final String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+    final String googleMapsUrl =
+        "https://www.google.com/maps/search/?api=1&query=$query";
     final Uri googleMapsUri = Uri.parse(googleMapsUrl);
 
     if (await canLaunch(googleMapsUri.toString())) {

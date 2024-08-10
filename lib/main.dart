@@ -53,6 +53,8 @@ class _MyAppState extends State<MyApp> {
       title: 'HealthMini',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.appColors),
         useMaterial3: true,
       ),

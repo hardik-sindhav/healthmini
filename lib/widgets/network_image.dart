@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:octo_image/octo_image.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shimmer/shimmer.dart';
+
+
+import 'package:healthmini/utils/general_imports.dart';
 
 class NetworkImages extends StatelessWidget {
   final String? imageUrl;

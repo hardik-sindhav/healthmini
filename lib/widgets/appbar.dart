@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:healthmini/const/colors.dart';
-import 'package:healthmini/utils/textstyles.dart';
+import 'package:healthmini/utils/general_imports.dart';
 
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appName = 'HealthMini';
@@ -108,6 +106,12 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
                       'Terms & Conditions',
                       style: AppTextStyles.mediumTextStyles(fontSize: 14),
                     )),
+                PopupMenuItem(
+                    value: 'profile',
+                    child: Text(
+                      'Update Profile',
+                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                    )),
               ];
             },
           ),
@@ -176,6 +180,12 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
                     'Terms & Conditions',
                     style: AppTextStyles.mediumTextStyles(fontSize: 14),
                   )),
+              PopupMenuItem(
+                  value: 'profile',
+                  child: Text(
+                    'Update Profile',
+                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
+                  )),
             ];
           },
         ),
@@ -216,6 +226,12 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
               'Terms & Conditions',
               style: AppTextStyles.mediumTextStyles(fontSize: 14),
             )),
+        TextButton(
+            onPressed: () => _handleMenuSelection(context, 'profile'),
+            child: Text(
+              'Update Profile',
+              style: AppTextStyles.mediumTextStyles(fontSize: 14),
+            )),
       ],
     );
   }
@@ -236,6 +252,9 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
         break;
       case 'terms':
         Navigator.pushNamed(context, '/terms_conditions');
+        break;
+      case 'profile':
+        Navigator.pushNamed(context, '/user_location');
         break;
     }
   }
