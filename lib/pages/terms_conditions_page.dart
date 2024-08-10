@@ -60,6 +60,7 @@ class TermsConditionsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const WarningBanner(),
           Text(
             'Terms and Conditions',
             style: AppTextStyles.boldTextStyles(fontSize: 24),

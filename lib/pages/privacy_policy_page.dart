@@ -60,6 +60,7 @@ class PrivacyPolicyPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const WarningBanner(),
           Text(
             'Privacy Policy',
             style: AppTextStyles.boldTextStyles(fontSize: 24),

@@ -129,7 +129,8 @@ class HomeBanner extends StatelessWidget {
           Positioned(
             bottom: -size / 15,
             left: -10,
-            child: Lottie.asset('assets/lottie/ani_3.json', height: size / 2),
+            child: Lottie.asset('assets/lottie/ani_3.json',
+                height: size / 2, frameRate: FrameRate.max, repeat: true),
           ),
           Positioned(
             top: 50,

@@ -41,6 +41,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       FindSymptomsState.loading
                   ? Center(
                       child: Lottie.asset("assets/lottie/loader.json",
+                          frameRate: FrameRate.max,
+                          repeat: true,
                           height: screenWidth <= 650
                               ? screenWidth / 4
                               : screenWidth > 650 && screenWidth <= 1024

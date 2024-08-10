@@ -107,7 +107,6 @@ class HomeBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      margin: const EdgeInsets.only(top: 5),
       height: size / 2.5,
       width: size / 1.1,
       decoration: BoxDecoration(
@@ -121,7 +120,8 @@ class HomeBanner extends StatelessWidget {
           Positioned(
             bottom: -size / 15,
             left: -10,
-            child: Lottie.asset('assets/lottie/ani_3.json', height: size / 2),
+            child: Lottie.asset('assets/lottie/ani_3.json',
+                height: size / 2, frameRate: FrameRate.max, repeat: true),
           ),
           Positioned(
             top: 50,
@@ -146,7 +146,7 @@ class HomeBanner extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  borderRadius: const BorderRadius.all(Radius.circular(100)),
                 ),
                 child: Text(
                   "Try Free",

@@ -1,11 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:healthmini/service/shared_preferences_service.dart';
-import 'package:healthmini/utils/textstyles.dart';
-import 'package:lottie/lottie.dart';
-
-import '../const/colors.dart';
-import '../widgets/button_widget.dart';
+import 'package:healthmini/utils/general_imports.dart';
+import 'package:healthmini/widgets/button_widget.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -72,14 +66,17 @@ class MobileMainView extends StatelessWidget {
         Positioned(
             left: -20,
             bottom: -52,
-            child: Lottie.asset('assets/lottie/ani_1.json', height: 400)),
+            child: Lottie.asset('assets/lottie/ani_1.json',
+                frameRate: FrameRate.max, repeat: true, height: 400)),
         Positioned(
             left: 30,
             top: 10,
             child: Row(
               children: [
                 Image.asset("assets/images/logo.png", height: 35),
-                const SizedBox(width: 5,),
+                const SizedBox(
+                  width: 5,
+                ),
                 Text(
                   "Health",
                   style: AppTextStyles.boldTextStyles(
@@ -102,18 +99,14 @@ class MobileMainView extends StatelessWidget {
               children: [
                 Text("HealthMini: Advanced Health Analytics at Your Fingertips",
                     style: AppTextStyles.boldTextStyles(
-                          textColor: AppColors.blackColor,
-                          fontSize: 35
-                    )),
+                        textColor: AppColors.blackColor, fontSize: 35)),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
                     "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
                     style: AppTextStyles.mediumTextStyles(
-                          textColor: Colors.black87,
-                          fontSize: 18
-                    )),
+                        textColor: Colors.black87, fontSize: 18)),
                 const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -182,7 +175,8 @@ class TabletMainView extends StatelessWidget {
         Positioned(
             left: -30,
             bottom: -58,
-            child: Lottie.asset('assets/lottie/ani_1.json', height: 450)),
+            child: Lottie.asset('assets/lottie/ani_1.json',
+                height: 450, frameRate: FrameRate.max, repeat: true)),
         Positioned(
             left: 50,
             top: 20,
@@ -193,16 +187,12 @@ class TabletMainView extends StatelessWidget {
                 Text(
                   "Health",
                   style: AppTextStyles.boldTextStyles(
-                        textColor: AppColors.appColors,
-                        fontSize: 30
-                  ),
+                      textColor: AppColors.appColors, fontSize: 30),
                 ),
                 Text(
                   "mini",
                   style: AppTextStyles.boldTextStyles(
-                        textColor: AppColors.blackColor,
-                        fontSize: 30
-                  ),
+                      textColor: AppColors.blackColor, fontSize: 30),
                 ),
               ],
             )),
@@ -300,7 +290,9 @@ class DesktopMainView extends StatelessWidget {
           left: -screenWidth / 30,
           bottom: -screenWidth / 16,
           child: Lottie.asset('assets/lottie/ani_1.json',
-              height: screenWidth / 2.1),
+              height: screenWidth / 2.1,
+              frameRate: FrameRate.max,
+              repeat: true),
         ),
         Positioned(
           left: 70,
@@ -308,19 +300,21 @@ class DesktopMainView extends StatelessWidget {
           child: Row(
             children: [
               Image.asset("assets/images/logo.png", height: 50),
-              const SizedBox(width: 10,),
+              const SizedBox(
+                width: 10,
+              ),
               Text(
                 "Health",
                 style: AppTextStyles.boldTextStyles(
-                    textColor: AppColors.appColors,
-                    fontSize: 40,
+                  textColor: AppColors.appColors,
+                  fontSize: 40,
                 ),
               ),
               Text(
                 "mini",
                 style: AppTextStyles.boldTextStyles(
-                    textColor: AppColors.blackColor,
-                    fontSize: 40,
+                  textColor: AppColors.blackColor,
+                  fontSize: 40,
                 ),
               ),
             ],
@@ -329,22 +323,22 @@ class DesktopMainView extends StatelessWidget {
         AnimatedPositioned(
           duration: const Duration(microseconds: 500),
           curve: Curves.easeInOut,
-          top: 150, // Adjusted for desktop view
-          right: 70, // Adjusted for desktop view
+          top: 150,
+          right: 70,
           left: screenWidth / 3,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end, // Align to right
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 "HealthMini: Advanced Health Analytics at Your Fingertips",
-                textAlign: TextAlign.left, // Right align text
+                textAlign: TextAlign.left,
                 style: AppTextStyles.boldTextStyles(
                   textColor: AppColors.blackColor,
-                  fontSize: 50, // Adjusted for desktop view
+                  fontSize: 50,
                 ),
               ),
               const SizedBox(
-                height: 40, // Adjusted for desktop view
+                height: 40,
               ),
               Text(
                 "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
