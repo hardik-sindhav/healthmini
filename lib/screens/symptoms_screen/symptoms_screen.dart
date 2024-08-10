@@ -18,7 +18,6 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -34,8 +33,15 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
               builder: (context, symptomsListProvider, child) {
             switch (symptomsListProvider.symptomsListState) {
               case SymptomsListState.loading:
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: Lottie.asset("assets/lottie/loader.json",
+                      frameRate: FrameRate.max,
+                      repeat: true,
+                      height: screenWidth <= 650
+                          ? screenWidth / 4
+                          : screenWidth > 650 && screenWidth <= 1024
+                              ? screenWidth / 6
+                              : screenWidth / 8),
                 );
               case SymptomsListState.loaded:
                 return Padding(

@@ -110,15 +110,20 @@ class SymptomsListProvider extends ChangeNotifier {
         if (res != null && res['data'] != null) {
           DetailsModel detailsModel = DetailsModel.fromJson(res);
           detailsList = detailsModel.data ?? [];
-          if (country != "" ||
-              city != "" ||
-              state != "" ||
-              age != "" ||
-              gender != "") {
+          if (country != "" &&
+              city != "" &&
+              state != "" &&
+              age != "" &&
+              gender != "" &&
+              country != null &&
+              city != null &&
+              state != null &&
+              age != null &&
+              gender != null) {
             await FirebaseFirestore.instance.collection('query_data').add({
-              'country': country ?? "",
-              'state': state ?? "",
-              'city': city ?? "",
+              'country': country,
+              'state': state,
+              'city': city,
               'symptoms': selectedSymptomsList,
               'age': age,
               'gender': gender,

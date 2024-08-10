@@ -87,6 +87,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Statistics',
@@ -98,7 +99,16 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           _buildFilters(),
           Expanded(
             child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? Center(
+                    child: Lottie.asset("assets/lottie/loader.json",
+                        frameRate: FrameRate.max,
+                        repeat: true,
+                        height: screenWidth <= 650
+                            ? screenWidth / 4
+                            : screenWidth > 650 && screenWidth <= 1024
+                                ? screenWidth / 6
+                                : screenWidth / 8),
+                  )
                 : _buildCountryList(),
           ),
         ],
