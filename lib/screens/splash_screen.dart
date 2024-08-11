@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:healthmini/service/shared_preferences_service.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
         if (country == null || country == '') {
           Navigator.pushNamed(context, '/user_location');
         } else {
-          Navigator.pushNamedAndRemoveUntil(context, '/home',(route) => true,);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/home',
+            (route) => true,
+          );
         }
       },
     );
@@ -28,12 +33,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Image.asset(
-          "assets/images/logo.png",
-          height: 150,
-          width: 150,
+    return AnnotatedRegion(
+      value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Image.asset(
+            "assets/images/logo.png",
+            height: 150,
+            width: 150,
+          ),
         ),
       ),
     );
