@@ -46,5 +46,5 @@ Open cmd and run :
 **Name  : Viraj Sindhav**
 **Email : sindhavh73@gmail.com**
 
-**Name  : Astmita Vadhel**
-**Email : vadhelyogita660@gmail.com**
+**Name  : Hardik Sindhav**
+**Email : sindhavh145@gmail.com**
