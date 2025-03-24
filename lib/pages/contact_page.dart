@@ -232,8 +232,89 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     ),
             ),
           ),
+          const SizedBox(height: 40),
+          _buildContactInfoSection(),
         ],
       ),
+    );
+  }
+
+  Widget _buildContactInfoSection() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 600) {
+          // Desktop/Tablet Layout
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildContactInfoItem(
+                icon: Icons.location_on,
+                label: 'Address',
+                content: '302 Suman Swarg, Surat, Gujrat, 394105',
+              ),
+              _buildContactInfoItem(
+                icon: Icons.phone,
+                label: 'Phone',
+                content: '+91 9328003180',
+              ),
+              _buildContactInfoItem(
+                icon: Icons.email,
+                label: 'Email',
+                content: 'viragvadhel7@gmail.com',
+              ),
+            ],
+          );
+        } else {
+          // Mobile Layout
+          return Column(
+            children: [
+              _buildContactInfoItem(
+                icon: Icons.location_on,
+                label: 'Address',
+                content: '302 Suman Swarg, Surat, Gujrat, 394105',
+              ),
+              const SizedBox(height: 20),
+              _buildContactInfoItem(
+                icon: Icons.phone,
+                label: 'Phone',
+                content: '+91 9328003180',
+              ),
+              const SizedBox(height: 20),
+              _buildContactInfoItem(
+                icon: Icons.email,
+                label: 'Email',
+                content: 'viragvadhel7@gmail.com',
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildContactInfoItem({
+    required IconData icon,
+    required String label,
+    required String content,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, color: AppColors.appColors, size: 30),
+        const SizedBox(width: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: AppTextStyles.semiBoldTextStyles(fontSize: 16),
+            ),
+            Text(
+              content,
+              style: AppTextStyles.mediumTextStyles(fontSize: 14),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

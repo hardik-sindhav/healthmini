@@ -67,7 +67,7 @@ class PromptHelper {
      - **Country:** If no hospitals are available in the city or state, suggest hospitals in the same country.
    - Validate the hospital data to ensure:
      - **Hospital Name:** Exclude placeholder names like "Example", "XYZ", "ABC". Include realistic hospital names.
-     - **Contact Details:** Ensure that phone numbers and emails are realistic. Exclude dummy numbers such as "1234567890" or "0987654321".
+     - **Contact Details:** Ensure that phone numbers and emails are realistic. Exclude dummy numbers such as "1234567890","7890123456","999999999","7878787878" or "0987654321".
      - If no valid hospitals are found at any level (city, state, country), return an empty list for "best_hospital".
 
 4. **Error Handling:**

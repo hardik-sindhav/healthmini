@@ -10,7 +10,6 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -74,9 +73,7 @@ class MobileMainView extends StatelessWidget {
             child: Row(
               children: [
                 Image.asset("assets/images/logo.png", height: 35),
-                const SizedBox(
-                  width: 5,
-                ),
+                const SizedBox(width: 5),
                 Text(
                   "Health",
                   style: AppTextStyles.boldTextStyles(
@@ -100,9 +97,7 @@ class MobileMainView extends StatelessWidget {
                 Text("HealthMini: Advanced Health Analytics at Your Fingertips",
                     style: AppTextStyles.boldTextStyles(
                         textColor: AppColors.blackColor, fontSize: 35)),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Text(
                     "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
                     style: AppTextStyles.mediumTextStyles(
@@ -125,13 +120,34 @@ class MobileMainView extends StatelessWidget {
                             Navigator.pushNamed(context, '/home');
                           }
                         }),
-                    const SizedBox(
-                      width: 20,
-                    ),
+                    const SizedBox(width: 20),
                     ButtonWidget(
                       onTab: () => Navigator.pushNamed(context, '/about'),
                     ),
                   ],
+                ),
+                const SizedBox(height: 20),
+                AnimatedPositioned(
+                  duration: const Duration(microseconds: 500),
+                  curve: Curves.easeInOut,
+                  bottom: 20,
+                  right: 30,
+                  left: 30,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      _buildFooterLink(
+                          context, 'Privacy Policy', '/privacy_policy'),
+                      const SizedBox(width: 5),
+                      _buildFooterLink(context, 'Terms & Conditions', '/terms'),
+                      const SizedBox(width: 5),
+                      _buildFooterLink(
+                          context, 'Refund Policy', '/refund_policy'),
+                      const SizedBox(width: 5),
+                      _buildFooterLink(context, 'Contact Us', '/contact'),
+                    ],
+                  ),
                 ),
               ],
             )),
@@ -210,9 +226,7 @@ class TabletMainView extends StatelessWidget {
                   style: AppTextStyles.boldTextStyles(
                       textColor: AppColors.blackColor, fontSize: 40),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 Text(
                   "HealthMini predicts diseases from your symptoms, provides medication advice, connects you with top local doctors, and alerts you to potential pandemics in your area.",
                   textAlign: TextAlign.center,
@@ -237,19 +251,77 @@ class TabletMainView extends StatelessWidget {
                             Navigator.pushNamed(context, '/home');
                           }
                         }),
-                    const SizedBox(
-                      width: 30,
-                    ),
+                    const SizedBox(width: 30),
                     ButtonWidget(
                       onTab: () => Navigator.pushNamed(context, '/about'),
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
               ],
             )),
+        Positioned(
+          top: 20,
+          left: 70,
+          right: 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/privacy_policy'),
+                child: Text(
+                  'Privacy Policy',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 12),
+                ),
+              ),
+              const SizedBox(width: 10),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/terms'),
+                child: Text(
+                  'Terms & Conditions',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 12),
+                ),
+              ),
+              const SizedBox(width: 10),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/refund_policy'),
+                child: Text(
+                  'Refund Policy',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 12),
+                ),
+              ),
+              const SizedBox(width: 10),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/contact'),
+                child: Text(
+                  'Contact Us',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
+}
+
+Widget _buildFooterLink(BuildContext context, String text, String route) {
+  return TextButton(
+    onPressed: () => Navigator.pushNamed(context, route),
+    child: Text(
+      text,
+      style: AppTextStyles.mediumTextStyles(
+        textColor: AppColors.appColors,
+        fontSize: 14,
+      ),
+    ),
+  );
 }
 
 class DesktopMainView extends StatelessWidget {
@@ -373,6 +445,53 @@ class DesktopMainView extends StatelessWidget {
                     onTab: () => Navigator.pushNamed(context, '/about'),
                   ),
                 ],
+              ),
+              const SizedBox(height: 80),
+            ],
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          left: 70,
+          right: 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/privacy_policy'),
+                child: Text(
+                  'Privacy Policy',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 16),
+                ),
+              ),
+              const SizedBox(width: 20),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/terms'),
+                child: Text(
+                  'Terms & Conditions',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 16),
+                ),
+              ),
+              const SizedBox(width: 20),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/contact'),
+                child: Text(
+                  'Contact Us',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 16),
+                ),
+              ),
+              const SizedBox(width: 20),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/refund_policy'),
+                child: Text(
+                  'Refund Policy',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 16),
+                ),
               ),
             ],
           ),

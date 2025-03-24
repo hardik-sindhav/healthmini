@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:healthmini/pages/refund_policy_page..dart';
+import 'package:healthmini/screens/auth_screen/log_in_screen/log_in_screen.dart';
 import 'package:healthmini/utils/general_imports.dart';
 
 Future<void> main() async {
@@ -60,7 +62,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => kIsWeb ? LandingScreen() : SplashScreen(),
+        '/': (context) =>  LandingScreen(),
         '/home': (context) => HomeScreen(),
         '/about': (context) => AboutUsPage(),
         '/find_symptoms': (context) => SymptomsScreen(),
@@ -69,6 +71,7 @@ class _MyAppState extends State<MyApp> {
         '/exercise_details': (context) => ExerciseDetailView(),
         '/recipe_details': (context) => RecipeDetailView(),
         '/privacy_policy': (context) => PrivacyPolicyPage(),
+        '/refund_policy': (context) => RefundPolicyPage(),
         '/contact_page': (context) => ContactUsPage(),
         '/terms_conditions': (context) => TermsConditionsPage(),
         '/reviews': (context) => ReviewsPage(),

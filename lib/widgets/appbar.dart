@@ -3,7 +3,9 @@ import 'package:healthmini/utils/general_imports.dart';
 class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appName = 'HealthMini';
   final String appLogo = 'assets/images/logo.png';
-  const ResponsiveAppBar({super.key});
+  final bool isHide; // New parameter to hide profile
+
+  const ResponsiveAppBar({super.key, this.isHide = false});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           const Spacer(),
+          //BuyNowButton(onPressed: (){}),
           _buildMenuItems(context),
         ],
       ),
@@ -70,49 +73,13 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           const Spacer(),
+          //BuyNowButton(onPressed: (){}),
           PopupMenuButton<String>(
             onSelected: (value) {
               _handleMenuSelection(context, value);
             },
             itemBuilder: (context) {
-              return [
-                PopupMenuItem(
-                    value: 'about',
-                    child: Text(
-                      'About Us',
-                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                    )),
-                PopupMenuItem(
-                    value: 'contact',
-                    child: Text(
-                      'Contact Us',
-                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                    )),
-                PopupMenuItem(
-                    value: 'reviews',
-                    child: Text(
-                      'Reviews',
-                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                    )),
-                PopupMenuItem(
-                    value: 'privacy',
-                    child: Text(
-                      'Privacy Policy',
-                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                    )),
-                PopupMenuItem(
-                    value: 'terms',
-                    child: Text(
-                      'Terms & Conditions',
-                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                    )),
-                PopupMenuItem(
-                    value: 'profile',
-                    child: Text(
-                      'Update Profile',
-                      style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                    )),
-              ];
+              return _buildPopupMenuItems(context);
             },
           ),
         ],
@@ -144,49 +111,13 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
+        //BuyNowButton(onPressed: (){}),
         PopupMenuButton<String>(
           onSelected: (value) {
             _handleMenuSelection(context, value);
           },
           itemBuilder: (context) {
-            return [
-              PopupMenuItem(
-                  value: 'about',
-                  child: Text(
-                    'About Us',
-                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                  )),
-              PopupMenuItem(
-                  value: 'contact',
-                  child: Text(
-                    'Contact Us',
-                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                  )),
-              PopupMenuItem(
-                  value: 'reviews',
-                  child: Text(
-                    'Reviews',
-                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                  )),
-              PopupMenuItem(
-                  value: 'privacy',
-                  child: Text(
-                    'Privacy Policy',
-                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                  )),
-              PopupMenuItem(
-                  value: 'terms',
-                  child: Text(
-                    'Terms & Conditions',
-                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                  )),
-              PopupMenuItem(
-                  value: 'profile',
-                  child: Text(
-                    'Update Profile',
-                    style: AppTextStyles.mediumTextStyles(fontSize: 14),
-                  )),
-            ];
+            return _buildPopupMenuItems(context);
           },
         ),
       ],
@@ -196,43 +127,51 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildMenuItems(BuildContext context) {
     return Row(
       children: [
-        TextButton(
-            onPressed: () => _handleMenuSelection(context, 'about'),
-            child: Text(
-              'About Us',
-              style: AppTextStyles.mediumTextStyles(fontSize: 14),
-            )),
-        TextButton(
-            onPressed: () => _handleMenuSelection(context, 'contact'),
-            child: Text(
-              'Contact Us',
-              style: AppTextStyles.mediumTextStyles(fontSize: 14),
-            )),
-        TextButton(
-            onPressed: () => _handleMenuSelection(context, 'reviews'),
-            child: Text(
-              'Reviews',
-              style: AppTextStyles.mediumTextStyles(fontSize: 14),
-            )),
-        TextButton(
-            onPressed: () => _handleMenuSelection(context, 'privacy'),
-            child: Text(
-              'Privacy Policy',
-              style: AppTextStyles.mediumTextStyles(fontSize: 14),
-            )),
-        TextButton(
-            onPressed: () => _handleMenuSelection(context, 'terms'),
-            child: Text(
-              'Terms & Conditions',
-              style: AppTextStyles.mediumTextStyles(fontSize: 14),
-            )),
-        TextButton(
-            onPressed: () => _handleMenuSelection(context, 'profile'),
-            child: Text(
-              'Update Profile',
-              style: AppTextStyles.mediumTextStyles(fontSize: 14),
-            )),
+        _buildTextButton(context, 'About Us', 'about'),
+        _buildTextButton(context, 'Contact Us', 'contact'),
+        _buildTextButton(context, 'Reviews', 'reviews'),
+        _buildTextButton(context, 'Privacy Policy', 'privacy'),
+        _buildTextButton(context, 'Terms & Conditions', 'terms'),
+        _buildTextButton(context, 'Refund Policy', 'refund'),
+        if (!isHide) // Hide Update Profile if isHide is true
+          _buildTextButton(context, 'Update Profile', 'profile'),
       ],
+    );
+  }
+
+  List<PopupMenuItem<String>> _buildPopupMenuItems(BuildContext context) {
+    List<PopupMenuItem<String>> items = [
+      _buildPopupMenuItem('About Us', 'about'),
+      _buildPopupMenuItem('Contact Us', 'contact'),
+      _buildPopupMenuItem('Reviews', 'reviews'),
+      _buildPopupMenuItem('Privacy Policy', 'privacy'),
+      _buildPopupMenuItem('Terms & Conditions', 'terms'),
+      _buildPopupMenuItem('Refund Policy', 'refund'),
+    ];
+
+    if (!isHide) {
+      items.add(_buildPopupMenuItem('Update Profile', 'profile'));
+    }
+    return items;
+  }
+
+  Widget _buildTextButton(BuildContext context, String title, String value) {
+    return TextButton(
+      onPressed: () => _handleMenuSelection(context, value),
+      child: Text(
+        title,
+        style: AppTextStyles.mediumTextStyles(fontSize: 14),
+      ),
+    );
+  }
+
+  PopupMenuItem<String> _buildPopupMenuItem(String title, String value) {
+    return PopupMenuItem(
+      value: value,
+      child: Text(
+        title,
+        style: AppTextStyles.mediumTextStyles(fontSize: 14),
+      ),
     );
   }
 
@@ -256,9 +195,60 @@ class ResponsiveAppBar extends StatelessWidget implements PreferredSizeWidget {
       case 'profile':
         Navigator.pushNamed(context, '/user_location');
         break;
+      case 'refund':
+        Navigator.pushNamed(context, '/refund_policy');
+        break;
     }
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class BuyNowButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String text;
+
+  const BuyNowButton(
+      {super.key, required this.onPressed, this.text = 'Buy Now'});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Adjust button size based on screen width
+    double buttonWidth = screenWidth > 1024
+        ? 100
+        : screenWidth > 650
+            ? 100
+            : 100;
+
+    double buttonHeight = screenWidth > 1024 ? 35 : 35;
+
+    return InkWell(
+      onTap: onPressed,
+      splashColor: Colors.white.withOpacity(0.3),
+      borderRadius: BorderRadius.circular(30),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: buttonWidth,
+        height: buttonHeight,
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.appColors),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: screenWidth > 1024 ? 14 : 14,
+              fontWeight: FontWeight.bold,
+              color: AppColors.appColors,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
