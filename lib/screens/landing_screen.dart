@@ -140,12 +140,12 @@ class MobileMainView extends StatelessWidget {
                       _buildFooterLink(
                           context, 'Privacy Policy', '/privacy_policy'),
                       const SizedBox(width: 5),
-                      _buildFooterLink(context, 'Terms & Conditions', '/terms'),
+                      _buildFooterLink(context, 'Terms & Conditions', '/terms_conditions'),
                       const SizedBox(width: 5),
                       _buildFooterLink(
                           context, 'Refund Policy', '/refund_policy'),
                       const SizedBox(width: 5),
-                      _buildFooterLink(context, 'Contact Us', '/contact'),
+                      _buildFooterLink(context, 'Contact Us', '/contact_page'),
                     ],
                   ),
                 ),
@@ -278,7 +278,7 @@ class TabletMainView extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/terms'),
+                onPressed: () => Navigator.pushNamed(context, '/terms_conditions'),
                 child: Text(
                   'Terms & Conditions',
                   style: AppTextStyles.mediumTextStyles(
@@ -296,7 +296,7 @@ class TabletMainView extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/contact'),
+                onPressed: () => Navigator.pushNamed(context, '/contact_page'),
                 child: Text(
                   'Contact Us',
                   style: AppTextStyles.mediumTextStyles(
@@ -468,18 +468,9 @@ class DesktopMainView extends StatelessWidget {
               ),
               const SizedBox(width: 20),
               TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/terms'),
+                onPressed: () => Navigator.pushNamed(context, '/terms_conditions'),
                 child: Text(
                   'Terms & Conditions',
-                  style: AppTextStyles.mediumTextStyles(
-                      textColor: Colors.black87, fontSize: 16),
-                ),
-              ),
-              const SizedBox(width: 20),
-              TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/contact'),
-                child: Text(
-                  'Contact Us',
                   style: AppTextStyles.mediumTextStyles(
                       textColor: Colors.black87, fontSize: 16),
                 ),
@@ -489,6 +480,15 @@ class DesktopMainView extends StatelessWidget {
                 onPressed: () => Navigator.pushNamed(context, '/refund_policy'),
                 child: Text(
                   'Refund Policy',
+                  style: AppTextStyles.mediumTextStyles(
+                      textColor: Colors.black87, fontSize: 16),
+                ),
+              ),
+              const SizedBox(width: 20),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/contact_page'),
+                child: Text(
+                  'Contact Us',
                   style: AppTextStyles.mediumTextStyles(
                       textColor: Colors.black87, fontSize: 16),
                 ),
